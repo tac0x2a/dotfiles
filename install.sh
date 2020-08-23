@@ -1,9 +1,3 @@
-# dotfiles
-dotfiles
-
-## Install Packages
-
-```sh
 sudo apt update
 sudo apt upgrade
 sudo apt install git tmux zsh zsh-syntax-highlighting
@@ -22,4 +16,3 @@ ln -s ~/.dotfiles/dot.zshrc      ~/.zshrc
 ln -s ~/.dotfiles/dot.zshrc.mine ~/.zshrc.mine
 
 echo "Please run 'chsh -s $(which zsh)'"
-```
