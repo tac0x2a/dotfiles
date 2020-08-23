@@ -1,6 +1,8 @@
+cd ~/
+
 sudo apt update
-sudo apt upgrade
-sudo apt install git tmux zsh zsh-syntax-highlighting
+sudo apt upgrade -y
+sudo apt install git tmux zsh zsh-syntax-highlighting -y
 
 # pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
