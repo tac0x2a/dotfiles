@@ -12,9 +12,9 @@ ssh-keygen -t rsa
 
 git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
-ln -s ~/.dotfiles/gitconfig      ~/.gitconfig
-ln -s ~/.dotfiles/dot.tmux.conf  ~/.tmux.conf
-ln -s ~/.dotfiles/dot.zshrc      ~/.zshrc
-ln -s ~/.dotfiles/dot.zshrc.mine ~/.zshrc.mine
+ln -s ~/.dotfiles/gitconfig   ~/.gitconfig
+ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
+ln -s ~/.dotfiles/.zshrc      ~/.zshrc
+ln -s ~/.dotfiles/.zshrc.mine ~/.zshrc.mine
 
 echo "Please run 'chsh -s $(which zsh)'"
