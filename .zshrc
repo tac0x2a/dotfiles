@@ -204,18 +204,6 @@ alias apu='sudo aptitude update'
 alias aps='sudo aptitude search'
 alias api='sudo aptitude install'
 
-#chrome
-alias chrome='google-chrome'
-
-#emacs
-function em(){
-    (emacsclient -n "$@" 2> /dev/null )  || ( emacs "$@" & )
-}
-
-function ce(){
-	 emacs -nw "$@"
-}
-
 #tmux
 alias tm='tmux'
 alias ta='tmux attach-session'
@@ -230,17 +218,6 @@ alias clip='xsel --clipboard'
 if [ $SHLVL = 1 ];then
 		tmux
 fi
-
-##################
-# Emacsのtramp用 #
-##################
-case "${TERM}" in
-dumb | emacs)
-    PROMPT="%n@%~%(!.#.$)"
-    RPROMPT=""
-    unsetopt zle
-    ;;
-esac
 
 ##########
 # gibo用 #
