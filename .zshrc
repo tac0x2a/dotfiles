@@ -193,6 +193,8 @@ export PATH=/opt/play:$PATH
 ##############
 alias ll='ls -lh'
 alias la='ls -a'
+alias lla='ls -la'
+alias lal='ls -al'
 alias lf='ls -F'
 
 #適切なサイズで表示
