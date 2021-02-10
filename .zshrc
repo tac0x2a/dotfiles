@@ -9,6 +9,24 @@ compinit
 # 補完で大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+
+####################
+# ディレクトリ履歴 #
+####################
+if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
+	# cdr, add-zsh-hook を有効にする
+	autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+	add-zsh-hook chpwd chpwd_recent_dirs
+
+	# cdr の設定
+	zstyle ':completion:*' recent-dirs-insert both
+	zstyle ':chpwd:*' recent-dirs-max 500
+	zstyle ':chpwd:*' recent-dirs-default true
+	# zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
+	zstyle ':chpwd:*' recent-dirs-pushd true
+fi
+
+
 ################
 # 先方予測機能 #
 ################
@@ -235,6 +253,29 @@ _gibo()
     fi
 }
 compdef _gibo gibo
+
+###########
+# peco 用 #
+###########
+# Ctrl-r でコマンド履歴検索
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+# Ctrl-u でディレクトリ履歴検索
+function peco-cdr () {
+    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+}
+zle -N peco-cdr
+bindkey '^U' peco-cdr
 
 ##################################
 # ローカル設定ファイルを読み込む #

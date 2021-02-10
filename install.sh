@@ -30,9 +30,6 @@ sudo apt install zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-de
 
 # Github -----------------------------------------------------------------------------------
 ssh-keygen -t rsa
-# TODO: Register to Github# TODO: Register to Github
-echo 'TODO: Register to Github'
-
 
 # dotfiles -----------------------------------------------------------------------------------
 git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
@@ -40,6 +37,18 @@ git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
 ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 ln -s ~/.dotfiles/.zshrc      ~/.zshrc
-ln -s ~/.dotfiles/.zshrc.mine ~/.zshrc.mine
+cp    ~/.dotfiles/.zshrc.mine ~/.zshrc.mine
+
+mkdir -p ~/.config/peco
+ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
 
 echo "Please run 'chsh -s $(which zsh)'"
+
+
+# symlinks -----------------------------------------------------------------------------------
+echo "RODO: Please run 'chsh -s $(which zsh)'"
+echo "TODO: Please run 'ln -s /paty/to/your/.pypirc ~/.pypirc'"
+echo "TODO: Please run 'ln -s /mnt/c/Users/tac/Desktop ~/Desktop'"
+echo "TODO: Please run 'ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive'"
+echo 'TODO: Register your rsa key to Github'
+
