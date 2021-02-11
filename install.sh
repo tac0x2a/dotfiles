@@ -10,7 +10,7 @@ git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 
 
 # Homebrew -----------------------------------------------------------------------------------
-sudo apt -y install build-essential curl file
+sudo apt install -y build-essential curl file
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # brew packages -----------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor 
 # pyenv -----------------------------------------------------------------------------------
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
-sudo apt install zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
+sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
 
 # Github -----------------------------------------------------------------------------------
 ssh-keygen -t rsa
