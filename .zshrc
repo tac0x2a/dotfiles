@@ -254,9 +254,9 @@ bindkey '^x^f' anyframe-widget-cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 
-# Ctrl+x -> Ctrl+r
+# Ctrl+x -> r
 # peco でコマンドの実行履歴を表示
-bindkey '^x^r' anyframe-widget-execute-history
+bindkey '^r' anyframe-widget-execute-history
 
 # Ctrl+x -> Ctrl+b
 # peco でGitブランチを表示して切替え
