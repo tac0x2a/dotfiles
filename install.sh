@@ -1,7 +1,6 @@
 cd ~/
 
 sudo apt update
-sudo apt upgrade
 sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco
 
 # Zinit ---------------------------------------------------------------------------------------
@@ -14,7 +13,7 @@ sudo apt install -y build-essential curl file
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # brew packages -----------------------------------------------------------------------------------
-
+# none ..
 
 # rbenv -----------------------------------------------------------------------------------
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -32,8 +31,6 @@ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
 sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
 
-# Github -----------------------------------------------------------------------------------
-ssh-keygen -t rsa
 
 # dotfiles -----------------------------------------------------------------------------------
 git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
@@ -50,9 +47,11 @@ echo "Please run 'chsh -s $(which zsh)'"
 
 
 # symlinks -----------------------------------------------------------------------------------
-echo "RODO: Please run 'chsh -s $(which zsh)'"
+echo "TODO: Please run 'chsh -s $(which zsh)'"
 echo "TODO: Please run 'ln -s /paty/to/your/.pypirc ~/.pypirc'"
 echo "TODO: Please run 'ln -s /mnt/c/Users/tac/Desktop ~/Desktop'"
 echo "TODO: Please run 'ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive'"
+
+echo "TODO: 'Please run ssh-keygen -t rsa'"
 echo 'TODO: Register your rsa key to Github'
 
