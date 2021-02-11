@@ -168,14 +168,7 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 PATH="${HOME}/.bin:${PATH}"
 PATH="${HOME}/.local/bin:${PATH}"
 
-
 MANPAGER="/usr/bin/less -is"
-
-#class path
-CLASSPATH="${HOME}/.emacs_setting/ensime/lib/jnotify/jnotify-0.93.jar:${HOME}/.emacs_setting/ensime/lib/scala/scala-library.jar:${HOME}/.emacs_setting/ensime/lib/scala/scala-compiler.jar:${CLASSPATH}"
-
-#android-sdk/tools
-PATH="${HOME}/.lib/android-sdk-linux_x86/tools:${PATH}"
 
 #git用
 export GIT_PAGER="lv -c"
