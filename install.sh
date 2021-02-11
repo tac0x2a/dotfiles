@@ -4,6 +4,10 @@ sudo apt update
 sudo apt upgrade
 sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco
 
+# Zinit ---------------------------------------------------------------------------------------
+mkdir ~/.zinit
+git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+
 
 # Homebrew -----------------------------------------------------------------------------------
 sudo apt -y install build-essential curl file

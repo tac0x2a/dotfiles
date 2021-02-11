@@ -1,5 +1,4 @@
 
-
 ############
 # 強力補完 #
 ############
@@ -226,28 +225,42 @@ _gibo()
 }
 compdef _gibo gibo
 
-###########
-# peco 用 #
-###########
-# Ctrl-r でコマンド履歴検索
-function peco-history-selection() {
-    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
+#########
+# Zinit #
+#########
+source ~/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Ctrl-u でディレクトリ履歴検索
-function peco-cdr () {
-    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
-    if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
-}
-zle -N peco-cdr
-bindkey '^U' peco-cdr
+# 補完
+zinit light zsh-users/zsh-autosuggestions
+
+# シンタックスハイライト
+zinit light zdharma/fast-syntax-highlighting
+
+# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
+zinit light paulirish/git-open
+
+# Gitの変更状態がわかる ls。ls の代わりにコマンド `k` を実行するだけ。
+zinit light supercrabtree/k
+
+########
+# peco #
+########
+zinit light mollifier/anyframe
+
+# Ctrl+x -> Ctrl+f でディレクトリの移動履歴を表示
+bindkey '^x^f' anyframe-widget-cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+# Ctrl+x -> Ctrl+r
+# peco でコマンドの実行履歴を表示
+bindkey '^x^r' anyframe-widget-execute-history
+
+# Ctrl+x -> Ctrl+b
+# peco でGitブランチを表示して切替え
+bindkey '^x^b' anyframe-widget-checkout-git-branch
 
 ##################################
 # ローカル設定ファイルを読み込む #
