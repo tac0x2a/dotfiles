@@ -281,4 +281,3 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 # ローカル設定ファイルを読み込む #
 ##################################
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
-

@@ -38,7 +38,7 @@ git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
 ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 ln -s ~/.dotfiles/.zshrc      ~/.zshrc
-cp    ~/.dotfiles/.zshrc.mine ~/.zshrc.mine
+touch                         ~/.zshrc.mine
 
 mkdir -p ~/.config/peco
 ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
