@@ -262,6 +262,21 @@ bindkey '^r' anyframe-widget-execute-history
 # peco でGitブランチを表示して切替え
 bindkey '^x^b' anyframe-widget-checkout-git-branch
 
+#######################
+# Init *env, Homebrew #
+#######################
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# Homebrew
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
 ##################################
 # ローカル設定ファイルを読み込む #
 ##################################
