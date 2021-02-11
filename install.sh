@@ -43,15 +43,14 @@ touch                         ~/.zshrc.mine
 mkdir -p ~/.config/peco
 ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
 
-echo "Please run 'chsh -s $(which zsh)'"
-
-
 # symlinks -----------------------------------------------------------------------------------
-echo "TODO: Please run 'chsh -s $(which zsh)'"
-echo "TODO: Please run 'ln -s /paty/to/your/.pypirc ~/.pypirc'"
-echo "TODO: Please run 'ln -s /mnt/c/Users/tac/Desktop ~/Desktop'"
-echo "TODO: Please run 'ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive'"
+echo "--------------------------------------------------------------------------"
+echo "Dotfiles setup finish."
+echo "Please run 'chsh -s $(which zsh)'"
+echo "Please run 'ln -s /paty/to/your/.pypirc ~/.pypirc'"
+echo "Please run 'ln -s /mnt/c/Users/tac/Desktop ~/Desktop'"
+echo "Please run 'ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive'"
 
-echo "TODO: 'Please run ssh-keygen -t rsa'"
+echo "Please run 'ssh-keygen -t rsa'"
 echo 'TODO: Register your rsa key to Github'
 
