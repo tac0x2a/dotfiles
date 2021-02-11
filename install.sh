@@ -2,7 +2,7 @@ cd ~/
 
 sudo apt update
 sudo apt upgrade
-sudo apt install -y git tmux zsh zsh-syntax-highlighting wget peco
+sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco
 
 
 # Homebrew -----------------------------------------------------------------------------------
