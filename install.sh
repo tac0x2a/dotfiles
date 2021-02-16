@@ -1,3 +1,7 @@
+sudo apt install -y git
+
+! [[ -d $HOME/.dotfiles ]] && git clone git@github.com:tac0x2a/dotfiles.git ~/.dotfiles
+
 cd ~/
 
 sudo apt update

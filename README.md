@@ -1,5 +1,12 @@
 # dotfiles
-dotfiles
+
+## Install
+
+```sh
+curl https://raw.githubusercontent.com/tac0x2a/dotfiles/master/install.sh | bash
+```
+
+or manual clone and install.
 
 ```sh
 sudo apt install git
