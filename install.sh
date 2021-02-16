@@ -32,6 +32,10 @@ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
 
 
+# SDKMAN! -----------------------------------------------------------------------------------
+curl -s "https://get.sdkman.io" | zsh
+
+
 # dotfiles -----------------------------------------------------------------------------------
 git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
