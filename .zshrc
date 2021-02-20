@@ -279,7 +279,7 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # sdkman
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/tac/.sdkman"
+export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 ##################################
