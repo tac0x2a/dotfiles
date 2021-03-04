@@ -1,6 +1,6 @@
 sudo apt install -y git
 
-! [[ -d $HOME/.dotfiles ]] && git clone git@github.com:tac0x2a/dotfiles.git ~/.dotfiles
+! [[ -d $HOME/.dotfiles ]] && git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
 cd ~/
 
