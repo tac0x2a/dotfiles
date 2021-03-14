@@ -33,7 +33,7 @@ git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-b
 # pyenv -----------------------------------------------------------------------------------
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
-sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev
+sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev
 
 
 # SDKMAN! -----------------------------------------------------------------------------------
