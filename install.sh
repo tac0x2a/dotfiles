@@ -24,8 +24,8 @@ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 ~/.rbenv/bin/rbenv init
 
 sudo apt install -y git curl libssl-dev libreadline-dev zlib1g-dev
-mkdir -p "$(rbenv root)"/plugins
-git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+mkdir -p ~/.rbenv/plugins
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 # curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
 
