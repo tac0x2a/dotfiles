@@ -5,7 +5,7 @@ sudo apt install -y git
 cd ~/
 
 sudo apt update
-sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco
+sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco curl
 
 # Zinit ---------------------------------------------------------------------------------------
 mkdir ~/.zinit
@@ -34,6 +34,10 @@ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
 sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev
+
+
+# nvm --------------------------------------------------------------------------------------
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | zsh
 
 
 # SDKMAN! -----------------------------------------------------------------------------------
