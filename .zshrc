@@ -205,7 +205,8 @@ alias ta='tmux attach-session'
 alias tl='tmux list-session'
 
 #クリップボード
-alias clip='xsel --clipboard'
+# alias clip='xsel --clipboard'
+# Todo: fix for WSL
 
 ##################
 # tmuxを自動起動 #
@@ -255,9 +256,9 @@ bindkey '^x^f' anyframe-widget-cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 
-# Ctrl+x -> r
+# Ctrl+r
 # peco でコマンドの実行履歴を表示
-bindkey '^r' anyframe-widget-execute-history
+bindkey '^r' anyframe-widget-put-history
 
 # Ctrl+x -> Ctrl+b
 # peco でGitブランチを表示して切替え
@@ -273,7 +274,7 @@ eval "$(rbenv init - zsh)"
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 
 # Homebrew
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
