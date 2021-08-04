@@ -2,7 +2,8 @@
 ############
 # 強力補完 #
 ############
-autoload -U compinit
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 compinit
 
 # 補完で大文字小文字を区別しない
