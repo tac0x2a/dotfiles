@@ -210,27 +210,31 @@ compdef _gibo gibo
 #########
 # Zinit #
 #########
-source ~/.zinit/bin/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+[[ -e ~/.zinit/bin/zinit.zsh ]] && {
+	source ~/.zinit/bin/zinit.zsh
 
-# 補完
-zinit light zsh-users/zsh-autosuggestions
+	autoload -Uz _zinit
+	(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# シンタックスハイライト
-zinit light zdharma/fast-syntax-highlighting
+	# 補完
+	zinit light zsh-users/zsh-autosuggestions
 
-# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
-zinit light paulirish/git-open
+	# シンタックスハイライト
+	zinit light zdharma/fast-syntax-highlighting
 
-# Gitの変更状態がわかる ls。ls の代わりにコマンド `k` を実行するだけ。
-zinit light supercrabtree/k
+	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
+	zinit light paulirish/git-open
+
+	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k` を実行するだけ。
+	zinit light supercrabtree/k
+
+	# for Peco
+	zinit light mollifier/anyframe
+}
 
 ########
 # peco #
 ########
-zinit light mollifier/anyframe
-
 # Ctrl+x -> Ctrl+f でディレクトリの移動履歴を表示
 bindkey '^x^f' anyframe-widget-cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
@@ -247,28 +251,36 @@ bindkey '^x^b' anyframe-widget-checkout-git-branch
 #######################
 # Init *env, Homebrew #
 #######################
+# Homebrew
+[[ -d /home/linuxbrew/ ]] && {
+	eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+}
+
 # rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - zsh)"
+[[ -d ~/.rbenv/bin ]] && {
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(rbenv init - zsh)"
+}
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-# Homebrew
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+[[ -d ~/.pyenv ]] && {
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init --path)"
+}
 
 # sdkman
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -d ~/.sdkman ]] && {
+	export SDKMAN_DIR="$HOME/.sdkman"
+	[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+}
 
 # nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -d ~/.nvm ]] && {
+	export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
 
 ##################################
 # ローカル設定ファイルを読み込む #
