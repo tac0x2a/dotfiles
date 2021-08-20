@@ -54,14 +54,6 @@ precmd () {
 }
 #RPROMPT="%1(v|%F{green}%1v%f|)"
 
-################################
-# lessのシンタックスハイライト #
-################################
-if [ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]; then
-		export LESS='-R'
-		export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
-fi
-
 
 ##############
 # プロンプト #
@@ -174,13 +166,6 @@ MANPAGER="/usr/bin/less -is"
 export GIT_PAGER="lv -c"
 export LV='-z -la -Ou8 -c'
 
-# svm(scala version managements)用
-export SCALA_HOME=~/.svm/current/rt
-export PATH=$SCALA_HOME/bin:$PATH
-
-# play用
-export PATH=/opt/play:$PATH
-
 ##############
 # エイリアス #
 ##############
@@ -193,11 +178,6 @@ alias lf='ls -F'
 #適切なサイズで表示
 alias df='df -h'
 alias du='du -h'
-
-#aptitude関連
-alias apu='sudo aptitude update'
-alias aps='sudo aptitude search'
-alias api='sudo aptitude install'
 
 #tmux
 alias tm='tmux'
