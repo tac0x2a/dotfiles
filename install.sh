@@ -1,11 +1,10 @@
-sudo apt install -y git
-
-! [[ -d $HOME/.dotfiles ]] && git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
-
-cd ~/
+#!/bin/bash
 
 sudo apt update
-sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco curl
+sudo apt install -y \
+  wget curl git  \
+  tmux zsh zsh-syntax-highlighting peco \
+  lv
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
@@ -70,12 +69,10 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
 
 # symlinks -----------------------------------------------------------------------------------
 echo "--------------------------------------------------------------------------"
-echo "Dotfiles setup finish."
-echo "Please run 'chsh -s $(which zsh)'"
-echo "Please run 'ln -s /paty/to/your/.pypirc ~/.pypirc'"
-echo "Please run 'ln -s /mnt/c/Users/tac/Desktop ~/Desktop'"
-echo "Please run 'ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive'"
-
-echo "Please run 'ssh-keygen -t rsa'"
-echo 'TODO: Register your rsa key to Github'
-
+echo "Setup is finished. Please run manually if it's necessary."
+echo ""
+echo "chsh -s $(which zsh)"
+echo "ln -s /paty/to/your/.pypirc ~/.pypirc"
+echo "ln -s /mnt/c/Users/tac/Desktop ~/Desktop"
+echo "ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive"
+echo "ssh-keygen -t rsa"
