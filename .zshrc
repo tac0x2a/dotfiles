@@ -1,18 +1,13 @@
 
-############
-# 強力補完 #
-############
+# 補完
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 compinit
 
-# 補完で大文字小文字を区別しない
+# 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-
-####################
-# ディレクトリ履歴 #
-####################
+# ディレクトリ履歴
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
 	# cdr, add-zsh-hook を有効にする
 	autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
@@ -26,24 +21,39 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 	zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
+# Emacs風キーバインド
+bindkey -e
 
-################
-# 先方予測機能 #
-################
-#autoload predict-on
-#predict-on
+# コマンド履歴
+HISTFILE=~/.zsh_history
+HISTSIZE=10000000
+SAVEHIST=10000000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
 
-# 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# コマンド履歴検索をC-pとC-nに割り当てる
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+# コマンド関連etc
+setopt auto_cd           # ディレクトリ名を入れるとcd
+setopt auto_pushd        # tabキーでcd履歴
+setopt correct           # コマンド補完
+setopt list_packed       # 補完リストを圧縮表示
+setopt nolistbeep        # ビープ音を殺す
+setopt multios           # マルチリダイレクト(ちょっと危険)
+setopt magic_equal_subst # = 以降でも補完できるようにする( --prefix=/usr 等の場合)
+setopt list_types        # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
+unsetopt no_clobber      # リダイレクトで上書きを許可
+
 
 ##############
-# 文字コード #
+# Appearance #
 ##############
-# export LANG=ja_JP.UTF-8
-
-######################################
-# バージョン管理ツールのブランチ表示 #
-######################################
+# バージョン管理ツールのブランチ表示
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
@@ -54,10 +64,7 @@ precmd () {
 }
 #RPROMPT="%1(v|%F{green}%1v%f|)"
 
-
-##############
-# プロンプト #
-##############
+# プロンプト
 case ${UID} in
 		0)
 				PROMPT="
@@ -68,7 +75,6 @@ case ${UID} in
 [%{[37m%}%U%n@%M %~%u%{[m%}]% %1(v|%F{green}%1v%f|) %{[31m%} # "
 
 						;;
-
 
 		*)
 				PROMPT="
@@ -83,62 +89,7 @@ case ${UID} in
 				;;
 esac
 
-
-################
-# タイトルバー #
-################
-case "${TERM}" in
-		kterm*|xterm)
-				precmd(){
-						echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-				}
-				;;
-esac
-
-
-
-################
-# コマンド履歴 #
-################
-HISTFILE=~/.zsh_history
-HISTSIZE=10000000
-SAVEHIST=10000000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
-
-
-#######################
-# Emacs風キーバインド #
-#######################
-bindkey -e
-
-##########################################
-# コマンド履歴検索をC-pとC-nに割り当てる #
-##########################################
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
-###################
-# コマンド関連etc #
-###################
-setopt auto_cd           # ディレクトリ名を入れるとcd
-setopt auto_pushd        # tabキーでcd履歴
-setopt correct           # コマンド補完
-setopt list_packed       # 補完リストを圧縮表示
-setopt nolistbeep        # ビープ音を殺す
-setopt multios           # マルチリダイレクト(ちょっと危険)
-setopt magic_equal_subst # = 以降でも補完できるようにする( --prefix=/usr 等の場合)
-setopt list_types        # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
-unsetopt no_clobber      # リダイレクトで上書きを許可
-
-
-##############
-# 色を付ける #
-##############
-#各種コマンド
+# 色を付ける
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls -h --color=auto'
@@ -156,11 +107,8 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 ############
 # 環境変数 #
 ############
-
-PATH="${HOME}/.bin:${PATH}"
-PATH="${HOME}/.local/bin:${PATH}"
-
-MANPAGER="/usr/bin/less -is"
+export PATH="${HOME}/.bin:${PATH}"
+export MANPAGER="/usr/bin/less -is"
 
 #git用
 export GIT_PAGER="lv -c"
@@ -232,22 +180,6 @@ compdef _gibo gibo
 	zinit light mollifier/anyframe
 }
 
-########
-# peco #
-########
-# Ctrl+x -> Ctrl+f でディレクトリの移動履歴を表示
-bindkey '^x^f' anyframe-widget-cdr
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-
-# Ctrl+r
-# peco でコマンドの実行履歴を表示
-bindkey '^r' anyframe-widget-put-history
-
-# Ctrl+x -> Ctrl+b
-# peco でGitブランチを表示して切替え
-bindkey '^x^b' anyframe-widget-checkout-git-branch
-
 #######################
 # Init *env, Homebrew #
 #######################
@@ -280,6 +212,30 @@ bindkey '^x^b' anyframe-widget-checkout-git-branch
 	export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
+########
+# peco #
+########
+# Ctrl+x -> Ctrl+f でディレクトリの移動履歴を表示
+bindkey '^x^f' anyframe-widget-cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+# Ctrl+r
+# peco でコマンドの実行履歴を表示
+bindkey '^r' anyframe-widget-put-history
+
+# Ctrl+x -> Ctrl+b
+# peco でGitブランチを表示して切替え
+bindkey '^x^b' anyframe-widget-checkout-git-branch
+
+##############################
+# Overwrite Command settings #
+##############################
+[[ -x $(whereis -b bat | awk '{print $2}') ]] && {
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	alias cat='bat --paging=never -p'
 }
 
 ##################################
