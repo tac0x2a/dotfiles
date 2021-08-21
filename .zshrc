@@ -7,6 +7,12 @@ compinit
 # 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# AWS
+aws_completer_path=$(whereis aws_completer | awk '{print $2}')
+[[ -x $aws_completer_path ]] && {
+	complete -C $aws_completer_path aws
+}
+
 # ディレクトリ履歴
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
 	# cdr, add-zsh-hook を有効にする
