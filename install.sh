@@ -1,67 +1,78 @@
-sudo apt install -y git
-
-! [[ -d $HOME/.dotfiles ]] && git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
-
-cd ~/
+#!/bin/bash
 
 sudo apt update
-sudo apt install -y git lv tmux zsh zsh-syntax-highlighting wget peco curl
+sudo apt install -y \
+  wget curl git  \
+  tmux zsh zsh-syntax-highlighting peco \
+  lv
+
+[[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
 # Zinit ---------------------------------------------------------------------------------------
-mkdir ~/.zinit
-git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
-
+[[ -d ~/.zinit/bin ]] || {
+  mkdir -p ~/.zinit
+  git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+}
 
 # Homebrew -----------------------------------------------------------------------------------
-sudo apt install -y build-essential curl file
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+[[ -d /home/linuxbrew/ ]] || {
+  sudo apt install -y build-essential curl file
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
 
-# brew packages -----------------------------------------------------------------------------------
-# none ..
+# brew packages
+[[ -d /home/linuxbrew/ ]] && brew install bat exa q
 
 # rbenv -----------------------------------------------------------------------------------
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-~/.rbenv/bin/rbenv init
+[[ -d ~/.rbenv ]] || {
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  ~/.rbenv/bin/rbenv init
+}
 
-sudo apt install -y git curl libssl-dev libreadline-dev zlib1g-dev
-mkdir -p ~/.rbenv/plugins
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-
-# curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+[[ -d ~/.rbenv/plugins/ruby-build ]] || {
+  sudo apt install -y git curl libssl-dev libreadline-dev zlib1g-dev
+  mkdir -p ~/.rbenv/plugins
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+}
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
 
 
 # pyenv -----------------------------------------------------------------------------------
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-
-sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev
-
-
-# nvm --------------------------------------------------------------------------------------
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | zsh
-
+[[ -d ~/.pyenv ]] || {
+  sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev
+  git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+}
 
 # SDKMAN! -----------------------------------------------------------------------------------
-curl -s "https://get.sdkman.io" | zsh
+[[ -d ~/.sdkman ]] || {
+  sudo apt install -y zip
+  curl -s "https://get.sdkman.io" | bash
+}
 
+# nvm --------------------------------------------------------------------------------------
+[[ -d ~/.nvm ]] || {
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+}
 
 # dotfiles -----------------------------------------------------------------------------------
 
-ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
-ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
-ln -s ~/.dotfiles/.zshrc      ~/.zshrc
-touch                         ~/.zshrc.mine
+[[ -e ~/.gitconfig ]] || ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
+[[ -e ~/.tmux.conf ]] || ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
+[[ -e ~/.zshrc     ]] || ln -s ~/.dotfiles/.zshrc      ~/.zshrc
 
-mkdir -p ~/.config/peco
-ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
+[[ -e ~/.config/peco/config.json ]] || {
+  mkdir -p ~/.config/peco
+  ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
+}
+
+[[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 # symlinks -----------------------------------------------------------------------------------
 echo "--------------------------------------------------------------------------"
-echo "Dotfiles setup finish."
-echo "Please run 'chsh -s $(which zsh)'"
-echo "Please run 'ln -s /paty/to/your/.pypirc ~/.pypirc'"
-echo "Please run 'ln -s /mnt/c/Users/tac/Desktop ~/Desktop'"
-echo "Please run 'ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive'"
-
-echo "Please run 'ssh-keygen -t rsa'"
-echo 'TODO: Register your rsa key to Github'
-
+echo "Setup is finished. Please run manually if it's necessary."
+echo ""
+echo "chsh -s $(which zsh)"
+echo "ln -s /paty/to/your/.pypirc ~/.pypirc"
+echo "ln -s /mnt/c/Users/tac/Desktop ~/Desktop"
+echo "ln -s /mnt/c/Users/tac/GoogleDrive ~/GoogleDrive"
+echo "ssh-keygen -t rsa"
