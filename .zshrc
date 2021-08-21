@@ -1,5 +1,7 @@
 
-# 補完
+#################
+# Auto-Complete #
+#################
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 compinit
@@ -13,6 +15,9 @@ aws_completer_path=$(whereis aws_completer | awk '{print $2}')
 	complete -C $aws_completer_path aws
 }
 
+###########
+# History #
+###########
 # ディレクトリ履歴
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
 	# cdr, add-zsh-hook を有効にする
@@ -27,15 +32,18 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 	zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
-# Emacs風キーバインド
-bindkey -e
-
 # コマンド履歴
 HISTFILE=~/.zsh_history
 HISTSIZE=10000000
 SAVEHIST=10000000
 setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
+
+#############
+# Key Binds #
+#############
+# Emacs風キーバインド
+bindkey -e
 
 # コマンド履歴検索をC-pとC-nに割り当てる
 autoload history-search-end
@@ -44,6 +52,9 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
+############
+# Zsh Misc #
+############
 # コマンド関連etc
 setopt auto_cd           # ディレクトリ名を入れるとcd
 setopt auto_pushd        # tabキーでcd履歴
