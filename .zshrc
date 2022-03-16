@@ -76,12 +76,23 @@ zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 precmd () {
 		psvar=()
-		LANG=en_US.UTF-8 vcs_info
-		[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-#RPROMPT="%1(v|%F{green}%1v%f|)"
 
-# プロンプト
+		# VCS
+		LANG=en_US.UTF-8 vcs_info
+		[[ -n "$vcs_info_msg_0_" ]] && psvar[1]=" $vcs_info_msg_0_"
+
+		# gcloud
+		psvar[2]=""
+	  if [ -f "$HOME/.config/gcloud/active_config" ]; then
+      gcp_profile=$(cat $HOME/.config/gcloud/active_config)
+			if [ -f "$HOME/.config/gcloud/configurations/config_${gcp_profile}" ]; then
+				project_id=$(awk '/project/{print $3}' $HOME/.config/gcloud/configurations/config_$gcp_profile)
+				psvar[2]=" (gcp)-[${project_id}]"
+			fi
+    fi
+}
+
+# Prompt
 case ${UID} in
 		0)
 				PROMPT="
@@ -95,10 +106,10 @@ case ${UID} in
 
 		*)
 				PROMPT="
-%{[33m%}[%/] %1(v|%F{green}%1v%f|)
-%{[33m%}[%n@%M ]%#%{[m%} "
-				PROMPT2="%{[33m%}%_%{[m%}]%> "
-				SPROMPT="%{[33m%}%r is correct? [n,y,a,e]%{[m%}%: "
+%F{yellow}[%/]%1(v|%F{green}%1v%f|)%f%F{32}%2v%f
+%F{yellow}[%n@%M]%#%f "
+				PROMPT2="%F{yellow}%_%f > "
+				SPROMPT="%F{red}\"%r\" is correct? [n,y,a,e]%f%: "
 				[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="
 %{[37m%}[%/] %1(v|%F{white}%1v%f|)
 [%n@%M ]%#%{[m%} "
