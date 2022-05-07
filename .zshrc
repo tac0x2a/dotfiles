@@ -85,10 +85,11 @@ precmd () {
 		psvar[2]=""
 	  if [ -f "$HOME/.config/gcloud/active_config" ]; then
       gcp_profile=$(cat $HOME/.config/gcloud/active_config)
-			if [ -f "$HOME/.config/gcloud/configurations/config_${gcp_profile}" ]; then
-				project_id=$(awk '/project/{print $3}' $HOME/.config/gcloud/configurations/config_$gcp_profile)
-				psvar[2]=" (gcp)-[${project_id}]"
-			fi
+			psvar[2]=" (gcp)-[${gcp_profile}]"
+			# if [ -f "$HOME/.config/gcloud/configurations/config_${gcp_profile}" ]; then
+			# 	project_id=$(awk '/project/{print $3}' $HOME/.config/gcloud/configurations/config_$gcp_profile)
+			# 	psvar[2]=" (gcp)-[${project_id}]"
+			# fi
     fi
 }
 
