@@ -192,6 +192,7 @@ if [[ -e ~/.zi/bin/zi.zsh ]]; then
 
 	autoload -Uz _zi
 	(( ${+_comps} )) && _comps[zi]=_zi
+	zicompinit
 
 	# 補完
 	zi light zsh-users/zsh-autosuggestions

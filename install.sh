@@ -46,6 +46,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
 [[ -d ~/.sdkman ]] || {
   sudo apt install -y zip
   curl -s "https://get.sdkman.io" | bash
+  rm ~/.zshrc
 }
 
 # nvm --------------------------------------------------------------------------------------
