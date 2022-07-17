@@ -14,6 +14,14 @@ sudo apt install -y \
   git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 }
 
+# Zi
+if [[ -e "${HOME}/.zi/bin/zi.zsh" ]]; then
+  sh -c "$(curl -fsSL https://git.io/get-zi)" --
+
+  # Only update / install repository
+  # sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
+fi
+
 # Homebrew -----------------------------------------------------------------------------------
 [[ -d /home/linuxbrew/ ]] || {
   sudo apt install -y build-essential curl file

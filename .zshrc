@@ -184,30 +184,30 @@ _gibo()
 }
 compdef _gibo gibo
 
-#########
-# Zinit #
-#########
-[[ -e ~/.zinit/bin/zinit.zsh ]] && {
-	source ~/.zinit/bin/zinit.zsh
+######
+# Zi #
+######
+if [[ -e ~/.zi/bin/zi.zsh ]]; then
+  source ~/.zi/bin/zi.zsh
 
-	autoload -Uz _zinit
-	(( ${+_comps} )) && _comps[zinit]=_zinit
+	autoload -Uz _zi
+	(( ${+_comps} )) && _comps[zi]=_zi
 
 	# 補完
-	zinit light zsh-users/zsh-autosuggestions
+	zi light zsh-users/zsh-autosuggestions
 
 	# シンタックスハイライト
-	zinit light zdharma/fast-syntax-highlighting
+	zi light zdharma/fast-syntax-highlighting
 
 	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
-	zinit light paulirish/git-open
+	zi light paulirish/git-open
 
 	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k` を実行するだけ。
-	zinit light supercrabtree/k
+	zi light supercrabtree/k
 
 	# for Peco
-	zinit light mollifier/anyframe
-}
+	zi light mollifier/anyframe
+fi
 
 #######################
 # Init *env, Homebrew #
