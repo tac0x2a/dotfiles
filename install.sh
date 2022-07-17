@@ -15,12 +15,12 @@ sudo apt install -y \
 }
 
 # Zi
-if [[ -e "${HOME}/.zi/bin/zi.zsh" ]]; then
+if [[ -e "${HOME}/.zi/bin/zi.zsh" ]] || {
   sh -c "$(curl -fsSL https://git.io/get-zi)" --
 
   # Only update / install repository
   # sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
-fi
+}
 
 # Homebrew -----------------------------------------------------------------------------------
 [[ -d /home/linuxbrew/ ]] || {
