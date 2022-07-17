@@ -8,13 +8,7 @@ sudo apt install -y \
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
-# Zinit ---------------------------------------------------------------------------------------
-[[ -d ~/.zinit/bin ]] || {
-  mkdir -p ~/.zinit
-  git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
-}
-
-# Zi
+# Zi ---------------------------------------------------------------------------------------
 [[ -e "${HOME}/.zi/bin/zi.zsh" ]] || {
   sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
 }
