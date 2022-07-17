@@ -15,7 +15,7 @@ sudo apt install -y \
 }
 
 # Zi
-if [[ -e "${HOME}/.zi/bin/zi.zsh" ]] || {
+[[ -e "${HOME}/.zi/bin/zi.zsh" ]] || {
   sh -c "$(curl -fsSL https://git.io/get-zi)" --
 
   # Only update / install repository
