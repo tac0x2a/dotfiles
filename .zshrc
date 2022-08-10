@@ -260,6 +260,31 @@ bindkey '^r' anyframe-widget-put-history
 # peco でGitブランチを表示して切替え
 bindkey '^x^b' anyframe-widget-checkout-git-branch
 
+# Ctrl+x -> Ctrl+g
+# peco で gcloud config configuration の切り替え
+switch_gcloud_config(){
+	which gcloud 2>&1 > /dev/null
+	if [ $? -ne 0 ]; then
+		return
+	fi
+
+	BUFFER="⌛Loading gcloud configurations ...⌛"
+	zle -R -c
+
+	local config_name=$(gcloud config configurations list | tail -n +2 | peco | awk '{print $1}')
+	if [ ! -z $config_name ]; then
+		BUFFER="gcloud config configurations activate '${config_name}'"
+		CURSOR=$(( ${#BUFFER} ))
+	else
+		BUFFER=""
+		CURSOR=0
+	fi
+	zle -R -c
+}
+zle -N switch_gcloud_config
+bindkey '^x^g' switch_gcloud_config
+
+
 ##############################
 # Overwrite Command settings #
 ##############################
