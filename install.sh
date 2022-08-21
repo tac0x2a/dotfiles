@@ -20,7 +20,7 @@ sudo apt install -y \
 }
 
 # brew packages
-[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils
+[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh
 
 # rbenv -----------------------------------------------------------------------------------
 [[ -d ~/.rbenv ]] || {
