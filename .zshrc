@@ -198,7 +198,7 @@ if [[ -e ~/.zi/bin/zi.zsh ]]; then
 	zi light zsh-users/zsh-autosuggestions
 
 	# シンタックスハイライト
-	zi light zdharma/fast-syntax-highlighting
+	# zi light zdharma/fast-syntax-highlighting # 重すぎる
 
 	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
 	zi light paulirish/git-open
