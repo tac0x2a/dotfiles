@@ -79,7 +79,17 @@ precmd () {
 
 		# VCS
 		LANG=en_US.UTF-8 vcs_info
-		[[ -n "$vcs_info_msg_0_" ]] && psvar[1]=" $vcs_info_msg_0_"
+		if [[ -n "$vcs_info_msg_0_" ]]; then
+			# status
+			st=$(git status)
+			s=""
+			if [[ -n $(grep "committed:$" <<<$st) ]];             then s="${s}➕"; fi # staged
+			if [[ -n $(grep "not staged for commit:$" <<<$st) ]]; then s="${s}❓"; fi # not staged
+			if [[ -n $(grep "^Untracked" <<<$st) ]];              then s="${s}❔"; fi # untracked
+			if [[ -z $s ]]; then s="✅"; fi
+
+			psvar[1]=" ${s}${vcs_info_msg_0_}"
+		fi
 
 		# gcloud
 		psvar[2]=""
