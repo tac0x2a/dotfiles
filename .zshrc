@@ -79,7 +79,17 @@ precmd () {
 
 		# VCS
 		LANG=en_US.UTF-8 vcs_info
-		[[ -n "$vcs_info_msg_0_" ]] && psvar[1]=" $vcs_info_msg_0_"
+		if [[ -n "$vcs_info_msg_0_" ]]; then
+			# status
+			st=$(git status)
+			s=""
+			if [[ -n $(grep "committed:$" <<<$st) ]];             then s="${s}➕"; fi # staged
+			if [[ -n $(grep "not staged for commit:$" <<<$st) ]]; then s="${s}❓"; fi # not staged
+			if [[ -n $(grep "^Untracked" <<<$st) ]];              then s="${s}❔"; fi # untracked
+			if [[ -z $s ]]; then s="✅"; fi
+
+			psvar[1]=" ${s}${vcs_info_msg_0_}"
+		fi
 
 		# gcloud
 		psvar[2]=""
@@ -161,6 +171,15 @@ alias tm='tmux'
 alias ta='tmux attach-session'
 alias tl='tmux list-session'
 
+show-current-dir-as-window-name() {
+	if [ $SHLVL -gt 1 ];then
+		tmux set-window-option window-status-format "[${PWD:t}]" > /dev/null
+		tmux set-window-option window-status-current-format "#[fg=colour16,bg=colour220,bold][${PWD:t}]" > /dev/null
+	fi
+}
+show-current-dir-as-window-name
+add-zsh-hook chpwd show-current-dir-as-window-name
+
 #クリップボード
 # alias clip='xsel --clipboard'
 # Todo: fix for WSL
@@ -198,7 +217,7 @@ if [[ -e ~/.zi/bin/zi.zsh ]]; then
 	zi light zsh-users/zsh-autosuggestions
 
 	# シンタックスハイライト
-	zi light zdharma/fast-syntax-highlighting
+	# zi light zdharma/fast-syntax-highlighting # 重すぎる
 
 	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
 	zi light paulirish/git-open
