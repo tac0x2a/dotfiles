@@ -20,7 +20,7 @@ sudo apt install -y \
 }
 
 # brew packages
-[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh starship
+[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh starship fzf
 
 # rbenv -----------------------------------------------------------------------------------
 [[ -d ~/.rbenv ]] || {
