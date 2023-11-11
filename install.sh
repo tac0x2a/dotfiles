@@ -64,6 +64,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
   mkdir -p ~/.config/peco
   ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
 }
+[[ -e ~/.config/starship.toml ]] || ln -s ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
 
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
