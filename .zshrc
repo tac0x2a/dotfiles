@@ -33,7 +33,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 
 	# cdr の設定
 	zstyle ':completion:*' recent-dirs-insert both
-	zstyle ':chpwd:*' recent-dirs-max 500
+	zstyle ':chpwd:*' recent-dirs-max 20000
 	zstyle ':chpwd:*' recent-dirs-default true
 	# zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
 	zstyle ':chpwd:*' recent-dirs-pushd true
@@ -81,7 +81,6 @@ setopt magic_equal_subst # = 以降でも補完できるようにする( --prefi
 setopt list_types        # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
 unsetopt no_clobber      # リダイレクトで上書きを許可
 
-
 ##############
 # Appearance #
 ##############
@@ -108,24 +107,19 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 export PATH="${HOME}/.bin:${PATH}"
 export MANPAGER="/usr/bin/less -is"
 
-##############
-# エイリアス #
-##############
-alias ll='ls -lh'
-alias la='ls -a'
-alias lla='ls -la'
-alias lal='ls -al'
-alias lf='ls -F'
-
-#適切なサイズで表示
-alias df='df -h'
-alias du='du -h'
-
+########
+# tmux #
+########
 #tmux
 alias tm='tmux'
 alias ta='tmux attach-session'
 alias tl='tmux list-session'
 
+if [ $SHLVL = 1 ];then
+		tmux
+fi
+
+# TMUX のウィンドウ名をカレントディレクトリに
 show-current-dir-as-window-name() {
 	if [ $SHLVL -gt 1 ];then
 		tmux set-window-option window-status-format "[${PWD:t}]" > /dev/null
@@ -135,20 +129,10 @@ show-current-dir-as-window-name() {
 show-current-dir-as-window-name
 add-zsh-hook chpwd show-current-dir-as-window-name
 
-#クリップボード
-# alias clip='xsel --clipboard'
-# Todo: fix for WSL
 
-##################
-# tmuxを自動起動 #
-##################
-if [ $SHLVL = 1 ];then
-		tmux
-fi
-
-##########
-# gibo用 #
-##########
+########
+# gibo #
+########
 _gibo()
 {
     local_repo="$HOME/.gitignore-boilerplates"
@@ -177,11 +161,8 @@ if [[ -e ~/.zi/bin/zi.zsh ]]; then
 	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
 	zi light paulirish/git-open
 
-	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k` を実行するだけ。
+	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k`
 	zi light supercrabtree/k
-
-	# for Peco
-	zi light mollifier/anyframe
 fi
 
 #######################
@@ -281,7 +262,24 @@ bindkey '^x^g' fzf-select-gcloud-config
 	alias cat='bat --paging=never -p'
 }
 
+alias ll='ls -lh'
+alias la='ls -a'
+alias lla='ls -la'
+alias lal='ls -al'
+alias lf='ls -F'
+
+#適切なサイズで表示
+alias df='df -h'
+alias du='du -h'
+
+#クリップボード
+alias clip='clip.exe' # for wsl
+# alias clip='xsel --clipboard'
+
+
+
 ##################################
 # ローカル設定ファイルを読み込む #
 ##################################
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+
