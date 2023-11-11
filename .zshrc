@@ -11,8 +11,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # AWS
 aws_completer_path=$(whereis aws_completer | awk '{print $2}')
-[[ -x $aws_completer_path ]] && {
-	complete -C $aws_completer_path aws
+[[ -x $aws_completer_path ]] && complete -C $aws_completer_path aws
+
+# GCP
+google_cloud_sdk_path=$(whereis google-cloud-sdk | awk '{print $2}')
+[[ -d $google_cloud_sdk_path ]] && {
+	# PATH for the Google Cloud SDK.
+	[[ -f "${google_cloud_sdk_path}/path.zsh.inc" ]] && . "${google_cloud_sdk_path}/path.zsh.inc";
+	# enables shell command completion for gcloud.
+	[[ -f "${google_cloud_sdk_path}/completion.zsh.inc" ]] && . "${google_cloud_sdk_path}/completion.zsh.inc";
 }
 
 ###########
