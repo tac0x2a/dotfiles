@@ -3,8 +3,8 @@
 sudo apt update
 sudo apt install -y \
   wget curl git  \
-  tmux zsh zsh-syntax-highlighting peco \
-  lv
+  tmux zsh zsh-syntax-highlighting peco
+
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 

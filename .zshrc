@@ -101,10 +101,6 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 export PATH="${HOME}/.bin:${PATH}"
 export MANPAGER="/usr/bin/less -is"
 
-#git用
-export GIT_PAGER="lv -c"
-export LV='-z -la -Ou8 -c'
-
 ##############
 # エイリアス #
 ##############
@@ -263,6 +259,7 @@ bindkey '^x^g' switch_gcloud_config
 ##############################
 [[ -x $(whereis -b bat | awk '{print $2}') ]] && {
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export GIT_PAGER="bat -p"
 	alias cat='bat --paging=never -p'
 }
 
