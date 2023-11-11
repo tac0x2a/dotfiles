@@ -213,45 +213,56 @@ fi
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
-########
-# peco #
-########
-# Ctrl+x -> Ctrl+f でディレクトリの移動履歴を表示
-bindkey '^x^f' anyframe-widget-cdr
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
+#######
+# fzf #
+#######
+export FZF_DEFAULT_OPTS=" -e \
+ --bind=ctrl-k:kill-line,ctrl-v:page-down,alt-v:page-up,change:top \
+ --reverse \
+ --no-scrollbar \
+ --prompt='🔍 ' --pointer='👉' \
+ --color=hl:red,hl+:red"
 
-# Ctrl+r
-# peco でコマンドの実行履歴を表示
-bindkey '^r' anyframe-widget-put-history
+# Ctrl-x -> Ctrl-f : ディレクトリの移動履歴を表示
+function fzf-select-cdr() {
+	local -r selected_dir=$(cdr -l |  awk '{print $2}' | fzf --no-sort)
+	if [[ -n "$selected_dir" ]]; then
+		BUFFER="cd ${selected_dir}"
+		zle accept-line
+	fi
+	zle reset-prompt
+}
+zle -N fzf-select-cdr
+bindkey '^x^f' fzf-select-cdr
 
-# Ctrl+x -> Ctrl+b
-# peco でGitブランチを表示して切替え
-bindkey '^x^b' anyframe-widget-checkout-git-branch
+# Ctrl-r : コマンドの実行履歴を表示
+function fzf-select-history() {
+    BUFFER=$(history -n 1 | fzf --query "$LBUFFER" --tac --no-sort )
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
 
-# Ctrl+x -> Ctrl+g
-# peco で gcloud config configuration の切り替え
-switch_gcloud_config(){
+# Ctrl+x -> Ctrl+g : gcloud config configuration の切り替え
+function fzf-select-gcloud-config(){
 	which gcloud 2>&1 > /dev/null
 	if [ $? -ne 0 ]; then
 		return
 	fi
 
-	BUFFER="⌛Loading gcloud configurations ...⌛"
-	zle -R -c
-
-	local config_name=$(gcloud config configurations list | tail -n +2 | peco | awk '{print $1}')
+	local config_name=$(gcloud config configurations list | tail -n +2 | fzf | awk '{print $1}')
 	if [ ! -z $config_name ]; then
 		BUFFER="gcloud config configurations activate '${config_name}'"
-		CURSOR=$(( ${#BUFFER} ))
+		CURSOR="${#BUFFER}"
 	else
 		BUFFER=""
 		CURSOR=0
 	fi
 	zle -R -c
 }
-zle -N switch_gcloud_config
-bindkey '^x^g' switch_gcloud_config
+zle -N fzf-select-gcloud-config
+bindkey '^x^g' fzf-select-gcloud-config
 
 
 ##############################
