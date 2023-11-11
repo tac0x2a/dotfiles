@@ -3,7 +3,7 @@
 sudo apt update
 sudo apt install -y \
   wget curl git  \
-  tmux zsh zsh-syntax-highlighting peco
+  tmux zsh zsh-syntax-highlighting
 
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
@@ -59,13 +59,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
 [[ -e ~/.gitconfig ]] || ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
 [[ -e ~/.tmux.conf ]] || ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 [[ -e ~/.zshrc     ]] || ln -s ~/.dotfiles/.zshrc      ~/.zshrc
-
-[[ -e ~/.config/peco/config.json ]] || {
-  mkdir -p ~/.config/peco
-  ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
-}
 [[ -e ~/.config/starship.toml ]] || ln -s ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
-
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 # symlinks -----------------------------------------------------------------------------------
