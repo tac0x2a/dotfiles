@@ -78,63 +78,7 @@ unsetopt no_clobber      # リダイレクトで上書きを許可
 ##############
 # Appearance #
 ##############
-# バージョン管理ツールのブランチ表示
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-precmd () {
-		psvar=()
-
-		# VCS
-		LANG=en_US.UTF-8 vcs_info
-		if [[ -n "$vcs_info_msg_0_" ]]; then
-			# status
-			st=$(git status)
-			s=""
-			if [[ -n $(grep "committed:$" <<<$st) ]];             then s="${s}➕"; fi # staged
-			if [[ -n $(grep "not staged for commit:$" <<<$st) ]]; then s="${s}❓"; fi # not staged
-			if [[ -n $(grep "^Untracked" <<<$st) ]];              then s="${s}❔"; fi # untracked
-			if [[ -z $s ]]; then s="✅"; fi
-
-			psvar[1]=" ${s}${vcs_info_msg_0_}"
-		fi
-
-		# gcloud
-		psvar[2]=""
-	  if [ -f "$HOME/.config/gcloud/active_config" ]; then
-      gcp_profile=$(cat $HOME/.config/gcloud/active_config)
-			psvar[2]=" (gcp)-[${gcp_profile}]"
-			# if [ -f "$HOME/.config/gcloud/configurations/config_${gcp_profile}" ]; then
-			# 	project_id=$(awk '/project/{print $3}' $HOME/.config/gcloud/configurations/config_$gcp_profile)
-			# 	psvar[2]=" (gcp)-[${project_id}]"
-			# fi
-    fi
-}
-
-# Prompt
-case ${UID} in
-		0)
-				PROMPT="
-[%{[31m%}%U%n@%M %~%u%{[m%}]% %1(v|%F{green}%1v%f|) %{[31m%} # "
-						PROMPT2="%{[31m%}%_%{[m%}]%> "
-						SPROMPT="%{[31m%}%r is correct? [n,y,a,e]%{[m%}%: "
-						[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="
-[%{[37m%}%U%n@%M %~%u%{[m%}]% %1(v|%F{green}%1v%f|) %{[31m%} # "
-
-						;;
-
-		*)
-				PROMPT="
-%F{yellow}[%/]%1(v|%F{green}%1v%f|)%f%F{32}%2v%f
-%F{yellow}[%n@%M]%#%f "
-				PROMPT2="%F{yellow}%_%f > "
-				SPROMPT="%F{red}\"%r\" is correct? [n,y,a,e]%f%: "
-				[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="
-%{[37m%}[%/] %1(v|%F{white}%1v%f|)
-[%n@%M ]%#%{[m%} "
-
-				;;
-esac
+# Prompt は starship.toml を参照
 
 # 色を付ける
 if [ -x /usr/bin/dircolors ]; then
@@ -156,10 +100,6 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 ############
 export PATH="${HOME}/.bin:${PATH}"
 export MANPAGER="/usr/bin/less -is"
-
-#git用
-export GIT_PAGER="lv -c"
-export LV='-z -la -Ou8 -c'
 
 ##############
 # エイリアス #
@@ -243,6 +183,8 @@ fi
 # Homebrew
 [[ -d /home/linuxbrew/ ]] && {
 	eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+	eval "$(starship init zsh)"
 }
 
 # rbenv
@@ -317,6 +259,7 @@ bindkey '^x^g' switch_gcloud_config
 ##############################
 [[ -x $(whereis -b bat | awk '{print $2}') ]] && {
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export GIT_PAGER="bat -p"
 	alias cat='bat --paging=never -p'
 }
 

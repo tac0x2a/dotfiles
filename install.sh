@@ -3,8 +3,8 @@
 sudo apt update
 sudo apt install -y \
   wget curl git  \
-  tmux zsh zsh-syntax-highlighting peco \
-  lv
+  tmux zsh zsh-syntax-highlighting peco
+
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
@@ -20,7 +20,7 @@ sudo apt install -y \
 }
 
 # brew packages
-[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh
+[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh starship
 
 # rbenv -----------------------------------------------------------------------------------
 [[ -d ~/.rbenv ]] || {
@@ -64,6 +64,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
   mkdir -p ~/.config/peco
   ln -s ~/.dotfiles/.config/peco/config.json ~/.config/peco/config.json
 }
+[[ -e ~/.config/starship.toml ]] || ln -s ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
 
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 

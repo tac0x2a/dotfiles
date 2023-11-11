@@ -1,0 +1,84 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+add_newline = true
+format = """
+$directory\
+$git_branch\
+$git_status\
+$python\
+$ruby\
+$rust\
+$golang\
+$terraform\
+$gcloud\
+$aws
+$username$hostname$character
+"""
+
+[username]
+style_user = "#e99d2a bold"
+format = '[$user]($style)'
+
+[hostname]
+style = "#e99d2a bold"
+format = '[(@$hostname)]($style)'
+
+[character]
+format = "$symbol "
+success_symbol = "[\\$](#e99d2a bold)"
+error_symbol = "[\\$](bright-red bold)"
+
+[directory]
+style = "#e99d2a bold"
+truncate_to_repo = false
+truncation_length = 0
+format = '[\[$read_only]($style)[$path\]]($style) '
+
+[git_branch]
+symbol = ''
+style = "purple"
+format = '[\[$branch(:$remote_branch)]($style)'
+
+[git_status]
+style = "purple"
+format = '[$modified$staged$deleted$renamed$untracked$stashed\] ]($style)'
+modified = '🔥'
+untracked = '❔'
+staged  = '[+\($count\)](green)'
+deleted = '[-\($count\)](red)'
+renamed = '[ mv\($count\)](gray)'
+stashed = '[\(STASHED\)](gray)'
+
+[python]
+symbol = '🐍'
+style = 'green bold'
+pyenv_version_name = true
+pyenv_prefix = ''
+format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\)) ]($style)'
+
+[ruby]
+symbol = '💎'
+style = 'red bold'
+format = '[$symbol($version)]($style)'
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+[terraform]
+symbol = '💠'
+format = '[$symbol$workspace]($style) '
+disabled = true
+
+[gcloud]
+style = "#4285F4"
+symbol = '☁️'
+format = '[$symbol$active\($account(@$domain)( : $project)\)]($style) '
+
+[aws]
+style = "#FF9900"
+symbol = '☁️'
+format = '[$symbol($profile)(\[$duration\] )]($style) '
+disabled = true
