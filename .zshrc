@@ -11,8 +11,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # AWS
 aws_completer_path=$(whereis aws_completer | awk '{print $2}')
-[[ -x $aws_completer_path ]] && {
-	complete -C $aws_completer_path aws
+[[ -x $aws_completer_path ]] && complete -C $aws_completer_path aws
+
+# GCP
+google_cloud_sdk_path=$(whereis google-cloud-sdk | awk '{print $2}')
+[[ -d $google_cloud_sdk_path ]] && {
+	# PATH for the Google Cloud SDK.
+	[[ -f "${google_cloud_sdk_path}/path.zsh.inc" ]] && . "${google_cloud_sdk_path}/path.zsh.inc";
+	# enables shell command completion for gcloud.
+	[[ -f "${google_cloud_sdk_path}/completion.zsh.inc" ]] && . "${google_cloud_sdk_path}/completion.zsh.inc";
 }
 
 ###########
@@ -26,7 +33,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 
 	# cdr の設定
 	zstyle ':completion:*' recent-dirs-insert both
-	zstyle ':chpwd:*' recent-dirs-max 500
+	zstyle ':chpwd:*' recent-dirs-max 20000
 	zstyle ':chpwd:*' recent-dirs-default true
 	# zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
 	zstyle ':chpwd:*' recent-dirs-pushd true
@@ -74,7 +81,6 @@ setopt magic_equal_subst # = 以降でも補完できるようにする( --prefi
 setopt list_types        # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
 unsetopt no_clobber      # リダイレクトで上書きを許可
 
-
 ##############
 # Appearance #
 ##############
@@ -101,24 +107,19 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 export PATH="${HOME}/.bin:${PATH}"
 export MANPAGER="/usr/bin/less -is"
 
-##############
-# エイリアス #
-##############
-alias ll='ls -lh'
-alias la='ls -a'
-alias lla='ls -la'
-alias lal='ls -al'
-alias lf='ls -F'
-
-#適切なサイズで表示
-alias df='df -h'
-alias du='du -h'
-
+########
+# tmux #
+########
 #tmux
 alias tm='tmux'
 alias ta='tmux attach-session'
 alias tl='tmux list-session'
 
+if [ $SHLVL = 1 ];then
+		tmux
+fi
+
+# TMUX のウィンドウ名をカレントディレクトリに
 show-current-dir-as-window-name() {
 	if [ $SHLVL -gt 1 ];then
 		tmux set-window-option window-status-format "[${PWD:t}]" > /dev/null
@@ -128,20 +129,10 @@ show-current-dir-as-window-name() {
 show-current-dir-as-window-name
 add-zsh-hook chpwd show-current-dir-as-window-name
 
-#クリップボード
-# alias clip='xsel --clipboard'
-# Todo: fix for WSL
 
-##################
-# tmuxを自動起動 #
-##################
-if [ $SHLVL = 1 ];then
-		tmux
-fi
-
-##########
-# gibo用 #
-##########
+########
+# gibo #
+########
 _gibo()
 {
     local_repo="$HOME/.gitignore-boilerplates"
@@ -170,11 +161,8 @@ if [[ -e ~/.zi/bin/zi.zsh ]]; then
 	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
 	zi light paulirish/git-open
 
-	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k` を実行するだけ。
+	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k`
 	zi light supercrabtree/k
-
-	# for Peco
-	zi light mollifier/anyframe
 fi
 
 #######################
@@ -213,45 +201,56 @@ fi
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
-########
-# peco #
-########
-# Ctrl+x -> Ctrl+f でディレクトリの移動履歴を表示
-bindkey '^x^f' anyframe-widget-cdr
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
+#######
+# fzf #
+#######
+export FZF_DEFAULT_OPTS=" -e \
+ --bind=ctrl-k:kill-line,ctrl-v:page-down,alt-v:page-up,change:top \
+ --reverse \
+ --no-scrollbar \
+ --prompt='🔍 ' --pointer='👉' \
+ --color=hl:red,hl+:red"
 
-# Ctrl+r
-# peco でコマンドの実行履歴を表示
-bindkey '^r' anyframe-widget-put-history
+# Ctrl-x -> Ctrl-f : ディレクトリの移動履歴を表示
+function fzf-select-cdr() {
+	local -r selected_dir=$(cdr -l |  awk '{print $2}' | fzf --no-sort)
+	if [[ -n "$selected_dir" ]]; then
+		BUFFER="cd ${selected_dir}"
+		zle accept-line
+	fi
+	zle reset-prompt
+}
+zle -N fzf-select-cdr
+bindkey '^x^f' fzf-select-cdr
 
-# Ctrl+x -> Ctrl+b
-# peco でGitブランチを表示して切替え
-bindkey '^x^b' anyframe-widget-checkout-git-branch
+# Ctrl-r : コマンドの実行履歴を表示
+function fzf-select-history() {
+    BUFFER=$(history -n 1 | fzf --query "$LBUFFER" --tac --no-sort )
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
 
-# Ctrl+x -> Ctrl+g
-# peco で gcloud config configuration の切り替え
-switch_gcloud_config(){
+# Ctrl+x -> Ctrl+g : gcloud config configuration の切り替え
+function fzf-select-gcloud-config(){
 	which gcloud 2>&1 > /dev/null
 	if [ $? -ne 0 ]; then
 		return
 	fi
 
-	BUFFER="⌛Loading gcloud configurations ...⌛"
-	zle -R -c
-
-	local config_name=$(gcloud config configurations list | tail -n +2 | peco | awk '{print $1}')
+	local config_name=$(gcloud config configurations list | tail -n +2 | fzf | awk '{print $1}')
 	if [ ! -z $config_name ]; then
 		BUFFER="gcloud config configurations activate '${config_name}'"
-		CURSOR=$(( ${#BUFFER} ))
+		CURSOR="${#BUFFER}"
 	else
 		BUFFER=""
 		CURSOR=0
 	fi
 	zle -R -c
 }
-zle -N switch_gcloud_config
-bindkey '^x^g' switch_gcloud_config
+zle -N fzf-select-gcloud-config
+bindkey '^x^g' fzf-select-gcloud-config
 
 
 ##############################
@@ -263,7 +262,24 @@ bindkey '^x^g' switch_gcloud_config
 	alias cat='bat --paging=never -p'
 }
 
+alias ll='ls -lh'
+alias la='ls -a'
+alias lla='ls -la'
+alias lal='ls -al'
+alias lf='ls -F'
+
+#適切なサイズで表示
+alias df='df -h'
+alias du='du -h'
+
+#クリップボード
+alias clip='clip.exe' # for wsl
+# alias clip='xsel --clipboard'
+
+
+
 ##################################
 # ローカル設定ファイルを読み込む #
 ##################################
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+
