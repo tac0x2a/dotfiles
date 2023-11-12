@@ -2,8 +2,8 @@
 
 sudo apt update
 sudo apt install -y \
-  wget curl git  \
-  tmux zsh zsh-syntax-highlighting
+  wget curl git \
+  tmux zsh
 
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
@@ -46,18 +46,20 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
 
 # nvm --------------------------------------------------------------------------------------
 [[ -d ~/.nvm ]] || {
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 }
 
 # dotfiles -----------------------------------------------------------------------------------
-
 [[ -e ~/.gitconfig ]] || ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
 [[ -e ~/.tmux.conf ]] || ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 [[ -e ~/.zshrc     ]] || ln -s ~/.dotfiles/.zshrc      ~/.zshrc
+
+mkdir -p ~/.config
 [[ -e ~/.config/starship.toml ]] || ln -s ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
 [[ -e ~/.config/sheldon/plugins.toml ]] || {
   mkdir -p ~/.config/sheldon && ln -s ~/.dotfiles/.config/sheldon/plugins.toml ~/.config/sheldon/plugins.toml
 }
+
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 # symlinks -----------------------------------------------------------------------------------

@@ -1,26 +1,8 @@
 
-#################
-# Auto-Complete #
-#################
-autoload -Uz bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-compinit
-
-# 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# AWS
-aws_completer_path=$(whereis aws_completer | awk '{print $2}')
-[[ -x $aws_completer_path ]] && complete -C $aws_completer_path aws
-
-# GCP
-google_cloud_sdk_path=$(whereis google-cloud-sdk | awk '{print $2}')
-[[ -d $google_cloud_sdk_path ]] && {
-	# PATH for the Google Cloud SDK.
-	[[ -f "${google_cloud_sdk_path}/path.zsh.inc" ]] && . "${google_cloud_sdk_path}/path.zsh.inc";
-	# enables shell command completion for gcloud.
-	[[ -f "${google_cloud_sdk_path}/completion.zsh.inc" ]] && . "${google_cloud_sdk_path}/completion.zsh.inc";
-}
+#######
+# Env #
+#######
+export PATH="${HOME}/.bin:${PATH}"
 
 ###########
 # History #
@@ -35,7 +17,6 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 	zstyle ':completion:*' recent-dirs-insert both
 	zstyle ':chpwd:*' recent-dirs-max 20000
 	zstyle ':chpwd:*' recent-dirs-default true
-	# zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
 	zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
@@ -81,31 +62,21 @@ setopt magic_equal_subst # = 以降でも補完できるようにする( --prefi
 setopt list_types        # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
 unsetopt no_clobber      # リダイレクトで上書きを許可
 
+#################
+# Auto-Complete #
+#################
+autoload -Uz bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+compinit
+
+# 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+
 ##############
 # Appearance #
 ##############
 # About prompt, please edit ~/.config/starship.toml
-
-# 色を付ける
-if [ -x /usr/bin/dircolors ]; then
-    eval "`dircolors -b`"
-    alias ls='ls -h --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-export LSCOLORS=exfxcxdxbxegedabagacad
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-
-
-############
-# 環境変数 #
-############
-export PATH="${HOME}/.bin:${PATH}"
-export MANPAGER="/usr/bin/less -is"
 
 ########
 # tmux #
@@ -129,18 +100,6 @@ show-current-dir-as-window-name() {
 show-current-dir-as-window-name
 add-zsh-hook chpwd show-current-dir-as-window-name
 
-
-########
-# gibo #
-########
-_gibo()
-{
-    local_repo="$HOME/.gitignore-boilerplates"
-    if [ -e "$local_repo" ]; then
-        compadd $( find "$local_repo" -name "*.gitignore" -exec basename \{\} .gitignore \; )
-    fi
-}
-compdef _gibo gibo
 
 #######################
 # Init *env, Homebrew #
@@ -185,7 +144,6 @@ eval "$(sheldon source)"
 # Please edit ~/.config/sheldon/plugins.toml
 
 
-
 #######
 # fzf #
 #######
@@ -194,7 +152,7 @@ export FZF_DEFAULT_OPTS=" -e \
  --reverse \
  --no-scrollbar \
  --prompt='🔍 ' --pointer='👉' \
- --color=hl:red,hl+:red"
+ --color=hl:red,hl+:red,bg+:239"
 
 # Ctrl-x -> Ctrl-f : ディレクトリの移動履歴を表示
 function fzf-select-cdr() {
@@ -241,26 +199,37 @@ bindkey '^x^g' fzf-select-gcloud-config
 ##############################
 # Overwrite Command settings #
 ##############################
-[[ -x $(whereis -b bat | awk '{print $2}') ]] && {
-	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-	export GIT_PAGER="bat -p"
-	alias cat='bat --paging=never -p'
-}
-
-alias ll='ls -lh'
+# ls
+alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lal='ls -al'
-alias lf='ls -F'
 
-#適切なサイズで表示
-alias df='df -h'
-alias du='du -h'
+# colors
+[ -x /usr/bin/dircolors ] && { # 色を付ける
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+		export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+		zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+		alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+}
+
+# pagers
+export MANPAGER="/usr/bin/less -is"
+[[ -x $(command -v bat) ]] && {
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export GIT_PAGER="bat -p"
+
+	# cat to bat
+	alias cat='bat --paging=never -p'
+}
 
 #クリップボード
 alias clip='clip.exe' # for wsl
 # alias clip='xsel --clipboard'
-
 
 
 ##################################
