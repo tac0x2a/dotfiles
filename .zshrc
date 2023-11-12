@@ -224,7 +224,7 @@ export MANPAGER="/usr/bin/less -is"
 	export GIT_PAGER="bat -p"
 
 	# cat to bat
-	alias cat='bat --paging=never -p'
+	alias cat='bat -pp'
 }
 
 #クリップボード
