@@ -142,15 +142,6 @@ _gibo()
 }
 compdef _gibo gibo
 
-###########
-# sheldon #
-###########
-# SHELDON_PATH=$(whereis sheldon | awk '{print $2}')
-SHELDON_PATH="/home/linuxbrew/.linuxbrew/bin/sheldon"
-eval "$($SHELDON_PATH source)"
-
-# Please edit ~/.config/sheldon/plugins.toml
-
 #######################
 # Init *env, Homebrew #
 #######################
@@ -186,6 +177,14 @@ eval "$($SHELDON_PATH source)"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
+
+###########
+# sheldon #
+###########
+eval "$(sheldon source)"
+# Please edit ~/.config/sheldon/plugins.toml
+
+
 
 #######
 # fzf #
