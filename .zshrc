@@ -84,7 +84,7 @@ unsetopt no_clobber      # リダイレクトで上書きを許可
 ##############
 # Appearance #
 ##############
-# Prompt は starship.toml を参照
+# About prompt, please edit ~/.config/starship.toml
 
 # 色を付ける
 if [ -x /usr/bin/dircolors ]; then
