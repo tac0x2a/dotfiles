@@ -12,15 +12,28 @@
 
 shell = "zsh"
 
-[plugins]
+[templates]
+defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
 
+[plugins]
+# sheldon lock --update    # プラグイン更新
+# sheldon lock --reinstall # プラグイン再インストール
+
+# プラグインを遅延読み込みする
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+# コマンド履歴からサジェスト
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
+apply = ["defer"]
 
 # git open で remote をブラウザで開く
 [plugins.git-open]
 github = "paulirish/git-open"
+apply = ["defer"]
 
 # git status の代わりに `k` コマンド
 [plugins.k]
 github = "supercrabtree/k"
+apply = ["defer"]
