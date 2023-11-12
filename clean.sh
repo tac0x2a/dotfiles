@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd $HOME
-rm -rf .zshrc .zcompdump \
+rm -rf .zshrc .zcompdump .zcompdump.zwc\
        .gitconfig .tmux.conf \
        .pyenv .rbenv .sdkman .nvm \
        .config/starship.toml \
