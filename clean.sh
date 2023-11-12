@@ -1,7 +1,9 @@
 #!/bin/bash
 
 cd $HOME
-rm -rf .dotfiles .zshrc .zcompdump \
+rm -rf .zshrc .zcompdump \
        .gitconfig .tmux.conf \
        .pyenv .rbenv .sdkman .nvm \
-       .zi .config/zi .config/starship.toml
+       .config/starship.toml \
+       ~/.config/sheldon ~/.local/share/sheldon
+# rm -rf .dotfiles

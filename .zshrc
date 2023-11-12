@@ -84,7 +84,7 @@ unsetopt no_clobber      # リダイレクトで上書きを許可
 ##############
 # Appearance #
 ##############
-# Prompt は starship.toml を参照
+# About prompt, please edit ~/.config/starship.toml
 
 # 色を付ける
 if [ -x /usr/bin/dircolors ]; then
@@ -142,29 +142,6 @@ _gibo()
 }
 compdef _gibo gibo
 
-######
-# Zi #
-######
-if [[ -e ~/.zi/bin/zi.zsh ]]; then
-  source ~/.zi/bin/zi.zsh
-
-	autoload -Uz _zi
-	(( ${+_comps} )) && _comps[zi]=_zi
-	zicompinit
-
-	# 補完
-	zi light zsh-users/zsh-autosuggestions
-
-	# シンタックスハイライト
-	# zi light zdharma/fast-syntax-highlighting # 重すぎる
-
-	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
-	zi light paulirish/git-open
-
-	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k`
-	zi light supercrabtree/k
-fi
-
 #######################
 # Init *env, Homebrew #
 #######################
@@ -200,6 +177,14 @@ fi
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
+
+###########
+# sheldon #
+###########
+eval "$(sheldon source)"
+# Please edit ~/.config/sheldon/plugins.toml
+
+
 
 #######
 # fzf #

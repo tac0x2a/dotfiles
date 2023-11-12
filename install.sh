@@ -8,11 +8,6 @@ sudo apt install -y \
 
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
-# Zi ---------------------------------------------------------------------------------------
-[[ -e "${HOME}/.zi/bin/zi.zsh" ]] || {
-  sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
-}
-
 # Homebrew -----------------------------------------------------------------------------------
 [[ -d /home/linuxbrew/ ]] || {
   sudo apt install -y build-essential curl file
@@ -20,7 +15,7 @@ sudo apt install -y \
 }
 
 # brew packages
-[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh starship fzf
+[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh starship fzf sheldon
 
 # rbenv -----------------------------------------------------------------------------------
 [[ -d ~/.rbenv ]] || {
@@ -60,6 +55,9 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
 [[ -e ~/.tmux.conf ]] || ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 [[ -e ~/.zshrc     ]] || ln -s ~/.dotfiles/.zshrc      ~/.zshrc
 [[ -e ~/.config/starship.toml ]] || ln -s ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
+[[ -e ~/.config/sheldon/plugins.toml ]] || {
+  mkdir -p ~/.config/sheldon && ln -s ~/.dotfiles/.config/sheldon/plugins.toml ~/.config/sheldon/plugins.toml
+}
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 # symlinks -----------------------------------------------------------------------------------
