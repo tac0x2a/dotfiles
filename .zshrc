@@ -142,28 +142,14 @@ _gibo()
 }
 compdef _gibo gibo
 
-######
-# Zi #
-######
-if [[ -e ~/.zi/bin/zi.zsh ]]; then
-  source ~/.zi/bin/zi.zsh
+###########
+# sheldon #
+###########
+# SHELDON_PATH=$(whereis sheldon | awk '{print $2}')
+SHELDON_PATH="/home/linuxbrew/.linuxbrew/bin/sheldon"
+eval "$($SHELDON_PATH source)"
 
-	autoload -Uz _zi
-	(( ${+_comps} )) && _comps[zi]=_zi
-	zicompinit
-
-	# 補完
-	zi light zsh-users/zsh-autosuggestions
-
-	# シンタックスハイライト
-	# zi light zdharma/fast-syntax-highlighting # 重すぎる
-
-	# クローンしたGit作業ディレクトリで、コマンド `git open` を実行するとブラウザでGitHubが開く
-	zi light paulirish/git-open
-
-	# Gitの変更状態がわかる ls。ls の代わりにコマンド `k`
-	zi light supercrabtree/k
-fi
+# Please edit ~/.config/sheldon/plugins.toml
 
 #######################
 # Init *env, Homebrew #
