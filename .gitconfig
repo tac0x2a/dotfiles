@@ -1,6 +1,8 @@
 [user]
 	name = TAC
 	email = tac@tac42.net
+[init]
+	defaultBranch = main
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
   status = auto
