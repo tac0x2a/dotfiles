@@ -168,9 +168,9 @@ bindkey '^x^f' fzf-select-cdr
 
 # Ctrl-r : コマンドの実行履歴を表示
 function fzf-select-history() {
-    BUFFER=$(history -n 1 | fzf --query "$LBUFFER" --tac --no-sort )
-    CURSOR=$#BUFFER
-    zle reset-prompt
+	BUFFER=$(history -n 1 | fzf --query "$LBUFFER" --tac --no-sort )
+	CURSOR=$#BUFFER
+	zle reset-prompt
 }
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
@@ -178,9 +178,7 @@ bindkey '^r' fzf-select-history
 # Ctrl+x -> Ctrl+g : gcloud config configuration の切り替え
 function fzf-select-gcloud-config(){
 	which gcloud 2>&1 > /dev/null
-	if [ $? -ne 0 ]; then
-		return
-	fi
+	[[ $? -ne 0 ]] && return;
 
 	local config_name=$(gcloud config configurations list | tail -n +2 | fzf | awk '{print $1}')
 	if [ ! -z $config_name ]; then
@@ -194,6 +192,25 @@ function fzf-select-gcloud-config(){
 }
 zle -N fzf-select-gcloud-config
 bindkey '^x^g' fzf-select-gcloud-config
+
+
+# Ctrl+x -> Ctrl+b : git branch の切り替え
+function fzf-select-git-branch(){
+	git status 2>&1 > /dev/null
+	[[ $? -ne 0 ]] && return;
+
+	local branch_name=$(git branch --list | cut -c 3- | fzf --preview "git log --graph --pretty='format:%as %aN %d %s' {}" --preview-window down,70%,nowrap)
+	if [ ! -z $branch_name ]; then
+		BUFFER="git checkout '${branch_name}'"
+		CURSOR="${#BUFFER}"
+	else
+		BUFFER=""
+		CURSOR=0
+	fi
+	zle -R -c
+}
+zle -N fzf-select-git-branch
+bindkey '^x^b' fzf-select-git-branch
 
 
 ##############################
