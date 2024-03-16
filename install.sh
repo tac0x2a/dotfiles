@@ -15,7 +15,7 @@ sudo apt install -y \
 }
 
 # brew packages
-[[ -d /home/linuxbrew/ ]] && brew install bat exa q moreutils gh starship fzf sheldon
+[[ -d /home/linuxbrew/ ]] && brew install bat jq gh moreutils gh starship fzf sheldon
 
 # rbenv -----------------------------------------------------------------------------------
 [[ -d ~/.rbenv ]] || {
