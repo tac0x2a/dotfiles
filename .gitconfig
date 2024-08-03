@@ -28,6 +28,8 @@
   up = pull --rebase       # pull rebase
   rbm = rebase master      # masterへのrebaseはよく使うのでalias
   ad = add
+  ap = add -p
+  cm = commit -m
   ci = commit -a           # modifiedなファイルを全てstageへ
   cam = commit -a --amend  # 直前のcommitを修正
   co = checkout
@@ -67,9 +69,3 @@
   # grep関連
   gr = grep
   gn = grep -n
-[giggle]
-	main-window-maximized = false
-	main-window-geometry = 1593x1052+295+67
-	history-view-vpane-position = 217
-	main-window-view = HistoryView
-	file-view-vpane-position = 260
