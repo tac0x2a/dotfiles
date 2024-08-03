@@ -33,7 +33,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | 
 
 # pyenv -----------------------------------------------------------------------------------
 [[ -d ~/.pyenv ]] || {
-  sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev
+  sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev tk-dev
   git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 }
 
