@@ -73,7 +73,7 @@ echo "--------------------------------------------------------------------------
 echo "Setup is finished. Please run manually if it's necessary."
 echo ""
 echo "chsh -s $(which zsh)"
-echo "ln -s /paty/to/your/.pypirc ~/.pypirc"
 echo "ln -s /mnt/c/Users/$(whoami)/Desktop ~/Desktop"
-echo "ln -s /mnt/c/Users/$(whoami)/GoogleDrive ~/GoogleDrive"
+echo "ln -s /mnt/c/Usersj/$(whoami)/GoogleDrive ~/GoogleDrive"
 echo "ssh-keygen -t rsa"
+echo 'ssh-copy-id ${user}@${remote_host}'
