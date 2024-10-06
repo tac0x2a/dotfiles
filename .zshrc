@@ -124,6 +124,14 @@ add-zsh-hook chpwd show-current-dir-as-window-name
 	eval "$(pyenv init --path)"
 }
 
+# uv
+[[ $(which uv) && $? == 0 ]] && {
+	eval "$(uv generate-shell-completion zsh)"
+}
+[[ $(which uvx) && $? == 0 ]] && {
+	eval "$(uvx --generate-shell-completion zsh)"
+}
+
 # sdkman
 [[ -d ~/.sdkman ]] && {
 	export SDKMAN_DIR="$HOME/.sdkman"
