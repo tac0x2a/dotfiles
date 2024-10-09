@@ -32,6 +32,7 @@ setopt share_history        # share command history data
 setopt hist_reduce_blanks   # ignore white spaces
 setopt hist_expand          # 補完時にヒストリを自動的に展開
 setopt inc_append_history   # 履歴をインクリメンタルに追加
+setopt extended_history
 
 
 #############
@@ -176,7 +177,7 @@ bindkey '^x^f' fzf-select-cdr
 
 # Ctrl-r : コマンドの実行履歴を表示
 function fzf-select-history() {
-	BUFFER=$(history -n 1 | fzf --query "$LBUFFER" --tac --no-sort )
+	BUFFER=$(history -i -n 1 | fzf --query "$LBUFFER" --tac --no-sort | sed -E 's/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}\s+//')
 	CURSOR=$#BUFFER
 	zle reset-prompt
 }
