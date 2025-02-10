@@ -1,61 +1,80 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt install -y \
-  wget curl git \
-  tmux zsh
+UNAME=$(uname)
+
+if [ "$(uname)" == 'Darwin' ]; then OS='Mac'
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then OS='Linux'
+else
+  echo "Unknown uname '${UNAME}'. Exit."
+  exit -1
+fi;
+
+echo "Setup for ${OS}"
+
+# Setup
+[[ $OS == "Linux" ]] && {
+  sudo apt update
+  sudo apt install -y wget curl git tmux zsh
+}
 
 
-[[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
 # Homebrew -----------------------------------------------------------------------------------
-[[ -d /home/linuxbrew/ ]] || {
-  sudo apt install -y build-essential curl file
+[[ -d $HOMEBREW_PREFIX ]] || {
+  [[ $OS == "Linux" ]] && sudo apt install -y build-essential file
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
-# brew packages
-[[ -d /home/linuxbrew/ ]] && brew install bat jq gh moreutils gh starship fzf sheldon
+# brew basic packages
+[[ -d $HOMEBREW_PREFIX ]] && {
+  brew update
+  brew install bat jq gh moreutils starship fzf sheldon
+
+  # GNU commands for Mac
+  [[ $OS == "Mac" ]] && brew install wget curl git tmux zsh
+  # [[ $OS == "Mac" ]] && brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils moreutils
+}
 
 # rbenv -----------------------------------------------------------------------------------
-[[ -d ~/.rbenv ]] || {
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  ~/.rbenv/bin/rbenv init
-}
-
-[[ -d ~/.rbenv/plugins/ruby-build ]] || {
-  sudo apt install -y git curl libssl-dev libreadline-dev zlib1g-dev
-  mkdir -p ~/.rbenv/plugins
-  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-}
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
-
+# [[ -d ~/.rbenv ]] || {
+#   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+#   ~/.rbenv/bin/rbenv init
+# }
+# [[ -d ~/.rbenv/plugins/ruby-build ]] || {
+#   sudo apt install -y git curl libssl-dev libreadline-dev zlib1g-dev
+#   mkdir -p ~/.rbenv/plugins
+#   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+# }
+# curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
 
 # Python
 # pyenv -----------------------------------------------------------------------------------
 [[ -d ~/.pyenv ]] || {
-  sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev tk-dev
-  git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  [[ $OS == "Linux" ]] && {
+    sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev tk-dev
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  }
+  [[ $OS == "Mac" ]] && brew install pyenv && mkdir ~/.pyenv
 }
 
 # uv -----------------------------------------------------------------------------------
-[[ -d /home/linuxbrew/ ]] || {
-  brew install uv
-}
+[[ -d $HOMEBREW_PREFIX ]] && brew install uv
 
 # SDKMAN! -----------------------------------------------------------------------------------
-[[ -d ~/.sdkman ]] || {
-  sudo apt install -y zip
-  curl -s "https://get.sdkman.io" | bash
-  rm ~/.zshrc
-}
+# [[ -d ~/.sdkman ]] || {
+#   [[ $OS == "Linux" ]] && sudo apt install -y zip
+#   curl -s "https://get.sdkman.io" | bash
+#   rm ~/.zshrc
+# }
 
 # nvm --------------------------------------------------------------------------------------
 [[ -d ~/.nvm ]] || {
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 }
 
 # dotfiles -----------------------------------------------------------------------------------
+[[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
+
 [[ -e ~/.gitconfig ]] || ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
 [[ -e ~/.tmux.conf ]] || ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 [[ -e ~/.zshrc     ]] || ln -s ~/.dotfiles/.zshrc      ~/.zshrc
@@ -72,8 +91,18 @@ mkdir -p ~/.config
 echo "--------------------------------------------------------------------------"
 echo "Setup is finished. Please run manually if it's necessary."
 echo ""
-echo "chsh -s $(which zsh)"
-echo "ln -s /mnt/c/Users/$(whoami)/Desktop ~/Desktop"
-echo "ln -s /mnt/c/Usersj/$(whoami)/GoogleDrive ~/GoogleDrive"
+[[ $OS == "Linux" ]] && {
+  echo "chsh -s $(which zsh)"
+  echo "ln -s /mnt/c/Users/$(whoami)/Desktop ~/Desktop"
+  echo "ln -s /mnt/c/Usersj/$(whoami)/GoogleDrive ~/GoogleDrive"
+}
+[[ $OS == "Mac" ]] && {
+
+  GDRIVE_PATH_TMP=$(ls -l ~/Google\ Drive | awk '{ print $12 }')
+  [[ -d $GDRIVE_PATH_TMP ]] && {
+    echo "ln -s ${GDRIVE_PATH_TMP} ~/GoogleDrive/マイドライブ"
+    echo "rm ~/Google\ Drive"
+  }
+}
 echo "ssh-keygen -t rsa"
 echo 'ssh-copy-id ${user}@${remote_host}'

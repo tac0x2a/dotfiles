@@ -72,6 +72,16 @@ compinit
 # 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+#######################
+# Init *env, Homebrew #
+#######################
+# Homebrew
+[[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -d /home/linuxbrew ]] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+[[ -d $HOMEBREW_PREFIX ]] && {
+	eval "$(starship init zsh)"
+}
 
 ##############
 # Appearance #
@@ -87,7 +97,7 @@ alias ta='tmux attach-session'
 alias tl='tmux list-session'
 
 if [ $SHLVL = 1 ];then
-		tmux
+	tmux
 fi
 
 # TMUX のウィンドウ名をカレントディレクトリに
@@ -100,16 +110,6 @@ show-current-dir-as-window-name() {
 show-current-dir-as-window-name
 add-zsh-hook chpwd show-current-dir-as-window-name
 
-
-#######################
-# Init *env, Homebrew #
-#######################
-# Homebrew
-[[ -d /home/linuxbrew/ ]] && {
-	eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-	eval "$(starship init zsh)"
-}
 
 # rbenv
 [[ -d ~/.rbenv/bin ]] && {
