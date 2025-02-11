@@ -50,8 +50,9 @@ mkdir -p ~/.config
 }
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
-[[ $OS == "Mac" ]] && [[ ! -e ~/.gnubinrc ]] && {
-  ln -s ~/.dotfiles/.gnubinrc ~/.gnubinrc
+[[ $OS == "Mac" ]] && {
+  [[ ! -e ~/.gnubinrc ]] && ln -s ~/.dotfiles/.gnubinrc ~/.gnubinrc
+  [[ ! -e ~/.bashrc ]] && ln -s ~/.dotfiles/.bashrc ~/.bashrc
 }
 
 # symlinks -----------------------------------------------------------------------------------
