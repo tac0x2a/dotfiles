@@ -65,8 +65,13 @@ unsetopt no_clobber      # リダイレクトで上書きを許可
 #################
 # Auto-Complete #
 #################
+# for brew zsh-completions #
+type brew &>/dev/null && {
+	chmod -R go-w "$(brew --prefix)/share"
+	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+}
 autoload -Uz bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+autoload -Uz compinit -u && compinit
 compinit
 
 # 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
