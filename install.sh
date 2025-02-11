@@ -100,10 +100,9 @@ echo ""
   echo "ln -s /mnt/c/Usersj/$(whoami)/GoogleDrive ~/GoogleDrive"
 }
 [[ $OS == "Mac" ]] && {
-
-  GDRIVE_PATH_TMP=$(ls -l ~/Google\ Drive | awk '{ print $12 }')
-  [[ -d $GDRIVE_PATH_TMP ]] && {
-    echo "ln -s ${GDRIVE_PATH_TMP} ~/GoogleDrive/マイドライブ"
+  [[ -d ~/Google\ Drive ]] && {
+    GDRIVE_PATH_TMP=$(ls -l ~/Google\ Drive | awk '{ print $12 }')
+    echo "ln -s ${GDRIVE_PATH_TMP}/マイドライブ ~/GoogleDrive"
     echo "rm ~/Google\ Drive"
   }
 }
