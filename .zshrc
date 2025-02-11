@@ -3,6 +3,7 @@
 # Env #
 #######
 export PATH="${HOME}/.bin:${PATH}"
+[[ -e ~/.gnubinrc ]] && source ~/.gnubinrc
 
 ###########
 # History #
@@ -203,6 +204,7 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lal='ls -al'
+
 
 # colors
 [ -x /usr/bin/dircolors ] && { # 色を付ける

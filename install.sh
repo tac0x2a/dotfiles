@@ -30,7 +30,7 @@ echo "### Setup for ${OS} ###"
 
   # GNU commands for Mac
   [[ $OS == "Mac" ]] && brew install wget curl git tmux zsh zsh-completions htop
-  # [[ $OS == "Mac" ]] && brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils moreutils
+  [[ $OS == "Mac" ]] && brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils
 }
 
 # dotfiles -----------------------------------------------------------------------------------
@@ -48,8 +48,11 @@ mkdir -p ~/.config
 [[ -e ~/.config/mise/config.toml ]] || {
   mkdir -p ~/.config/mise && ln -s ~/.dotfiles/.config/mise/config.toml ~/.config/mise/config.toml
 }
-
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
+
+[[ $OS == "Mac" ]] && [[ ! -e ~/.gnubinrc ]] && {
+  ln -s ~/.dotfiles/.gnubinrc ~/.gnubinrc
+}
 
 # symlinks -----------------------------------------------------------------------------------
 echo "--------------------------------------------------------------------------"
