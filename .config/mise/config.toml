@@ -1,0 +1,5 @@
+[tools]
+aws-cli = "latest"
+python = "latest"
+terraform = "latest"
+gcloud = "latest"

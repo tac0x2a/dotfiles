@@ -28,7 +28,7 @@ echo "### Setup for ${OS} ###"
 # brew basic packages
 [[ -d $HOMEBREW_PREFIX ]] && {
   brew update
-  brew install bat jq gh moreutils starship fzf sheldon
+  brew install bat jq gh mise moreutils starship fzf sheldon
 
   # GNU commands for Mac
   [[ $OS == "Mac" ]] && brew install wget curl git tmux zsh zsh-completions htop
@@ -49,13 +49,13 @@ echo "### Setup for ${OS} ###"
 
 # Python
 # pyenv -----------------------------------------------------------------------------------
-[[ -d ~/.pyenv ]] || {
-  [[ $OS == "Linux" ]] && {
-    sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev tk-dev
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-  }
-  [[ $OS == "Mac" ]] && brew install pyenv && mkdir ~/.pyenv
-}
+# [[ -d ~/.pyenv ]] || {
+#   [[ $OS == "Linux" ]] && {
+#     sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev tk-dev
+#     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+#   }
+#   [[ $OS == "Mac" ]] && brew install pyenv && mkdir ~/.pyenv
+# }
 
 # uv -----------------------------------------------------------------------------------
 [[ -d $HOMEBREW_PREFIX ]] && brew install uv
@@ -83,6 +83,9 @@ mkdir -p ~/.config
 [[ -e ~/.config/starship.toml ]] || ln -s ~/.dotfiles/.config/starship.toml ~/.config/starship.toml
 [[ -e ~/.config/sheldon/plugins.toml ]] || {
   mkdir -p ~/.config/sheldon && ln -s ~/.dotfiles/.config/sheldon/plugins.toml ~/.config/sheldon/plugins.toml
+}
+[[ -e ~/.config/mise/config.toml ]] || {
+  mkdir -p ~/.config/mise && ln -s ~/.dotfiles/.config/mise/config.toml ~/.config/mise/config.toml
 }
 
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine

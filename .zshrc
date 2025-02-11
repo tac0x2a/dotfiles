@@ -86,6 +86,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 [[ -d $HOMEBREW_PREFIX ]] && {
 	eval "$(starship init zsh)"
+	eval "$(mise activate zsh)"
 }
 
 ##############
