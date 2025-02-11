@@ -17,8 +17,6 @@ echo "### Setup for ${OS} ###"
   sudo apt install -y wget curl git tmux zsh
 }
 
-
-
 # Homebrew -----------------------------------------------------------------------------------
 [[ -d $HOMEBREW_PREFIX ]] || {
   [[ $OS == "Linux" ]] && sudo apt install -y build-essential file
@@ -28,48 +26,11 @@ echo "### Setup for ${OS} ###"
 # brew basic packages
 [[ -d $HOMEBREW_PREFIX ]] && {
   brew update
-  brew install bat jq gh mise moreutils starship fzf sheldon
+  brew install bat jq gh mise moreutils starship fzf sheldon uv
 
   # GNU commands for Mac
   [[ $OS == "Mac" ]] && brew install wget curl git tmux zsh zsh-completions htop
   # [[ $OS == "Mac" ]] && brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils moreutils
-}
-
-# rbenv -----------------------------------------------------------------------------------
-# [[ -d ~/.rbenv ]] || {
-#   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-#   ~/.rbenv/bin/rbenv init
-# }
-# [[ -d ~/.rbenv/plugins/ruby-build ]] || {
-#   sudo apt install -y git curl libssl-dev libreadline-dev zlib1g-dev
-#   mkdir -p ~/.rbenv/plugins
-#   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-# }
-# curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
-
-# Python
-# pyenv -----------------------------------------------------------------------------------
-# [[ -d ~/.pyenv ]] || {
-#   [[ $OS == "Linux" ]] && {
-#     sudo apt install -y zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev tk-dev
-#     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-#   }
-#   [[ $OS == "Mac" ]] && brew install pyenv && mkdir ~/.pyenv
-# }
-
-# uv -----------------------------------------------------------------------------------
-[[ -d $HOMEBREW_PREFIX ]] && brew install uv
-
-# SDKMAN! -----------------------------------------------------------------------------------
-# [[ -d ~/.sdkman ]] || {
-#   [[ $OS == "Linux" ]] && sudo apt install -y zip
-#   curl -s "https://get.sdkman.io" | bash
-#   rm ~/.zshrc
-# }
-
-# nvm --------------------------------------------------------------------------------------
-[[ -d ~/.nvm ]] || {
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 }
 
 # dotfiles -----------------------------------------------------------------------------------

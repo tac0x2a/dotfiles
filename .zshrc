@@ -62,6 +62,18 @@ setopt magic_equal_subst # = 以降でも補完できるようにする( --prefi
 setopt list_types        # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
 unsetopt no_clobber      # リダイレクトで上書きを許可
 
+#######################
+# Init *env, Homebrew #
+#######################
+# Homebrew
+[[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -d /home/linuxbrew ]] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+[[ -d $HOMEBREW_PREFIX ]] && {
+	eval "$(starship init zsh)"
+	eval "$(mise activate zsh)"
+}
+
 #################
 # Auto-Complete #
 #################
@@ -76,18 +88,6 @@ compinit
 
 # 補完の時に大文字小文字を区別しない (但し、大文字を打った場合は小文字に変換しない)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-#######################
-# Init *env, Homebrew #
-#######################
-# Homebrew
-[[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-[[ -d /home/linuxbrew ]] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-[[ -d $HOMEBREW_PREFIX ]] && {
-	eval "$(starship init zsh)"
-	eval "$(mise activate zsh)"
-}
 
 ##############
 # Appearance #
@@ -115,39 +115,9 @@ show-current-dir-as-window-name
 add-zsh-hook chpwd show-current-dir-as-window-name
 
 
-# rbenv
-[[ -d ~/.rbenv/bin ]] && {
-	export PATH="$HOME/.rbenv/bin:$PATH"
-	eval "$(rbenv init - zsh)"
-}
-
-# pyenv
-[[ -d ~/.pyenv ]] && {
-	export PYENV_ROOT="$HOME/.pyenv"
-	export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init --path)"
-}
-
 # uv
-[[ $(which uv) && $? == 0 ]] && {
-	eval "$(uv generate-shell-completion zsh)"
-}
-[[ $(which uvx) && $? == 0 ]] && {
-	eval "$(uvx --generate-shell-completion zsh)"
-}
-
-# sdkman
-[[ -d ~/.sdkman ]] && {
-	export SDKMAN_DIR="$HOME/.sdkman"
-	[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-}
-
-# nvm
-[[ -d ~/.nvm ]] && {
-	export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
+[[ $(which uv) && $? == 0 ]] && eval "$(uv generate-shell-completion zsh)"
+[[ $(which uvx) && $? == 0 ]] && eval "$(uvx --generate-shell-completion zsh)"
 
 ###########
 # sheldon #
