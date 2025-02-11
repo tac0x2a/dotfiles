@@ -66,7 +66,7 @@ unsetopt no_clobber      # リダイレクトで上書きを許可
 # Auto-Complete #
 #################
 # for brew zsh-completions #
-type brew &>/dev/null && {
+[[ $(type brew) ]] && {
 	chmod -R go-w "$(brew --prefix)/share"
 	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 }
@@ -102,9 +102,7 @@ alias tm='tmux'
 alias ta='tmux attach-session'
 alias tl='tmux list-session'
 
-if [ $SHLVL = 1 ];then
-	tmux
-fi
+[[ $SHLVL = 1 ]] && tmux
 
 # TMUX のウィンドウ名をカレントディレクトリに
 show-current-dir-as-window-name() {
