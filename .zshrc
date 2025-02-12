@@ -79,7 +79,7 @@ unsetopt no_clobber      # リダイレクトで上書きを許可
 # Auto-Complete #
 #################
 # for brew zsh-completions #
-[[ $(type brew) ]] && {
+[[ $(type brew) && $? == 0 ]] && {
 	chmod -R go-w "$(brew --prefix)/share"
 	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 }
