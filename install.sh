@@ -29,8 +29,10 @@ echo "### Setup for ${OS} ###"
   brew install bat jq gh mise moreutils starship fzf sheldon uv
 
   # GNU commands for Mac
-  [[ $OS == "Mac" ]] && brew install wget curl git tmux zsh zsh-completions htop
-  [[ $OS == "Mac" ]] && brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils
+  [[ $OS == "Mac" ]] && {
+    brew install wget curl git tmux zsh zsh-completions htop
+    brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils bash
+  }
 }
 
 # dotfiles -----------------------------------------------------------------------------------
