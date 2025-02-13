@@ -1,0 +1,32 @@
+# See https://ghostty.org/docs/config
+
+# Command to reload: cmd+shift+, or ctrl+shift+,
+
+###############
+# Preferences #
+###############
+# Font list: `ghostty +list-fonts`
+font-family = PlemolJP Console NF
+font-style =  Bold
+font-size = 15
+
+# Themes: `ghostty +list-themes`
+# theme = BirdsOfParadise
+theme = CobaltNext
+
+background-opacity = 0.90
+background-blur = true
+
+mouse-hide-while-typing = true
+window-position-x = 0
+window-position-y = 0
+quit-after-last-window-closed = true
+macos-window-shadow = false
+
+###############
+# Keybindings #
+###############
+# ghostty +list-actions
+keybind = all:ctrl+;=increase_font_size:1
+keybind = all:ctrl+-=decrease_font_size:1
+
