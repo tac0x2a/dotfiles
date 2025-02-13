@@ -50,12 +50,16 @@ mkdir -p ~/.config
 [[ -e ~/.config/mise/config.toml ]] || {
   mkdir -p ~/.config/mise && ln -s ~/.dotfiles/.config/mise/config.toml ~/.config/mise/config.toml
 }
-[[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 [[ $OS == "Mac" ]] && {
   [[ ! -e ~/.gnubinrc ]] && ln -s ~/.dotfiles/.gnubinrc ~/.gnubinrc
   [[ ! -e ~/.bashrc ]] && ln -s ~/.dotfiles/.bashrc ~/.bashrc
+  [[ -e ~/.config/ghostty/config ]] || {
+    mkdir -p ~/.config/ghostty && ln -s ~/.dotfiles/.config/ghostty/config ~/.config/ghostty/config
+  }
 }
+
+[[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 # symlinks -----------------------------------------------------------------------------------
 echo "--------------------------------------------------------------------------"
