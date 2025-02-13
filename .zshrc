@@ -229,9 +229,12 @@ export MANPAGER="/usr/bin/less -is"
 }
 
 #クリップボード
-alias clip='clip.exe' # for wsl
-# alias clip='xsel --clipboard'
-
+if [[ "$(uname)" == 'Darwin' ]]; then
+	alias clip='pbcopy' # for mac
+else [[ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]];
+	# alias clip='xsel --clipboard'
+	alias clip='clip.exe' # for wsl
+fi
 
 ##################################
 # ローカル設定ファイルを読み込む #
