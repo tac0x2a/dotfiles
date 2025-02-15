@@ -28,7 +28,7 @@ echo "### Setup for ${OS} ###"
 
   # GNU commands for Mac
   [[ $OS == "Mac" ]] && {
-    brew install wget curl git tmux zsh zsh-completions htop
+    brew install wget curl git tmux zsh zsh-completions htop emacs
     brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils bash
   }
 }
@@ -52,6 +52,7 @@ mkdir -p ~/.config
 [[ $OS == "Mac" ]] && {
   [[ ! -e ~/.gnubinrc ]] && ln -s ~/.dotfiles/.gnubinrc ~/.gnubinrc
   [[ ! -e ~/.bashrc ]] && ln -s ~/.dotfiles/.bashrc ~/.bashrc
+  [[ ! -e ~/.emacs ]] && ln -s ~/.dotfiles/.emacs ~/.emacs
   [[ -e ~/.config/ghostty/config ]] || {
     mkdir -p ~/.config/ghostty && ln -s ~/.dotfiles/.config/ghostty/config ~/.config/ghostty/config
   }
