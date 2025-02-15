@@ -55,6 +55,7 @@ mkdir -p ~/.config
   [[ -e ~/.config/ghostty/config ]] || {
     mkdir -p ~/.config/ghostty && ln -s ~/.dotfiles/.config/ghostty/config ~/.config/ghostty/config
   }
+  [[ -e ~/.config/karabiner ]] || ln -s ~/.dotfiles/.config/karabiner ~/.config/karabiner
 }
 
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
