@@ -27,6 +27,6 @@ macos-window-shadow = false
 # Keybindings #
 ###############
 # ghostty +list-actions
-keybind = all:ctrl+;=increase_font_size:1
+keybind = all:shift+ctrl+;=increase_font_size:1
 keybind = all:ctrl+-=decrease_font_size:1
 
