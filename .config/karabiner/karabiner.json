@@ -4,7 +4,35 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "英数・かなキーをtoggle方式にする",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "input_sources": [{ "language": "ja" }],
+                                        "type": "input_source_if"
+                                    }
+                                ],
+                                "from": { "key_code": "japanese_kana" },
+                                "to": [{ "key_code": "japanese_eisuu" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "input_sources": [{ "language": "ja" }],
+                                        "type": "input_source_unless"
+                                    }
+                                ],
+                                "from": { "key_code": "japanese_eisuu" },
+                                "to": [{ "key_code": "japanese_kana" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "英数・かなを単体で押したときにトグル、組み合わせると cmd",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -100,6 +128,12 @@
             },
             "name": "Default profile",
             "selected": true,
+            "simple_modifications": [
+                {
+                    "from": { "key_code": "japanese_eisuu" },
+                    "to": [{ "key_code": "left_command" }]
+                }
+            ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "jis" }
         }
     ]
