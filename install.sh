@@ -26,6 +26,13 @@ echo "### Setup for ${OS} ###"
   brew update
   brew install bat jq gh mise moreutils starship fzf sheldon uv
 
+  # Docker Environments
+  [[ $OS == "Mac" ]] && {
+    # https://github.com/abiosoft/colima
+    brew install colima docker docker-compose
+    # brew services start colima
+  }
+
   # GNU commands for Mac
   [[ $OS == "Mac" ]] && {
     brew install wget curl git tmux zsh zsh-completions htop emacs
