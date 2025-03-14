@@ -24,7 +24,7 @@ echo "### Setup for ${OS} ###"
 # brew basic packages
 [[ -d $HOMEBREW_PREFIX ]] && {
   brew update
-  brew install bat jq gh mise moreutils starship fzf sheldon uv
+  brew install bat eza jq gh mise moreutils starship fzf sheldon uv
 
   # Docker Environments
   [[ $OS == "Mac" ]] && {

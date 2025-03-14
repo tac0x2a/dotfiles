@@ -228,6 +228,13 @@ export MANPAGER="/usr/bin/less -is"
 	alias cat='bat -pp'
 }
 
+[[ -x $(command -v eza) ]] && {
+	alias ls='eza'
+	alias ll='eza -l  --icons=auto --time-style=iso --git'
+	alias la='eza -la --icons=auto --time-style=iso --git'
+	alias lt="eza -T -a -I 'node_modules|.git|.cache' --icons=auto"
+}
+
 #クリップボード
 if [[ "$(uname)" == 'Darwin' ]]; then
 	alias clip='pbcopy' # for mac
