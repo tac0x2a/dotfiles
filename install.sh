@@ -26,6 +26,15 @@ echo "### Setup for ${OS} ###"
   brew update
   brew install bat eza jq gh mise moreutils starship fzf sheldon uv
 
+  # MacTools
+  [[ $OS == "Mac" ]] && {
+    # brew install --cask google-chrome
+    brew install --cask google-japanese-ime
+    # brew install --cask visual-studio-code
+    # brew install --cask raycast
+    brew install --cask alt-tab
+  }
+
   # Docker Environments
   [[ $OS == "Mac" ]] && {
     # https://github.com/abiosoft/colima
