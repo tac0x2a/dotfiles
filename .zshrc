@@ -151,7 +151,8 @@ bindkey '^x^f' fzf-select-cdr
 
 # Ctrl-r : コマンドの実行履歴を表示
 function fzf-select-history() {
-	BUFFER=$(fc -R .zsh_history && history -i -n 1 | fzf --query "$LBUFFER" --tac --no-sort | sed -E 's/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}\s+//')
+	# BUFFER=$(fc -R .zsh_history && history -i -n 1 | fzf --query "$LBUFFER" --tac --no-sort | sed -E 's/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}\s+//')
+	BUFFER=$(fc -R .zsh_history && history -n 1 | fzf --query "$LBUFFER" --tac --no-sort | sed -E 's/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}\s+//')
 	CURSOR=$#BUFFER
 	zle reset-prompt
 }
