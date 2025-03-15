@@ -75,7 +75,8 @@ disabled = true
 [gcloud]
 style = "#4285F4"
 symbol = '☁️'
-format = '[$symbol$active\($account(@$domain)( : $project)\)]($style) '
+
+format = '[$symbol($project):$account(@$domain)]($style) '
 
 [aws]
 style = "#FF9900"
