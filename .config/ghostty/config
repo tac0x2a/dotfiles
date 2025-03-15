@@ -16,12 +16,18 @@ theme = CobaltNext
 
 background-opacity = 0.90
 background-blur = true
+macos-window-shadow = false
+
+window-padding-balance = true
+window-padding-x = 8
+window-padding-y = 0
 
 mouse-hide-while-typing = true
+
+window-save-state  = always
+quit-after-last-window-closed = true
 window-position-x = 0
 window-position-y = 0
-quit-after-last-window-closed = true
-macos-window-shadow = false
 
 ###############
 # Keybindings #
@@ -30,3 +36,9 @@ macos-window-shadow = false
 keybind = all:shift+ctrl+;=increase_font_size:1
 keybind = all:ctrl+-=decrease_font_size:1
 
+# macos-option-as-alt = true
+# macos-non-native-fullscreen = true
+
+# for Meta + v
+keybind = cmd+v=text:\x1bv
+keybind = cmd+x=text:\x1bx
