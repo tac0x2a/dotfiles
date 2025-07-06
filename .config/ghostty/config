@@ -44,3 +44,6 @@ keybind = cmd+v=text:\x1bv
 keybind = cmd+x=text:\x1bx
 keybind = cmd+f=text:\x1bf
 keybind = cmd+b=text:\x1bb
+
+
+copy-on-select = clipboard
