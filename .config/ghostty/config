@@ -11,8 +11,8 @@ font-style =  Bold
 font-size = 15
 
 # Themes: `ghostty +list-themes`
-# theme = BirdsOfParadise
-theme = CobaltNext
+# theme = Birds Of Paradise
+theme = Cobalt Next Dark
 
 background-opacity = 0.90
 background-blur = true
