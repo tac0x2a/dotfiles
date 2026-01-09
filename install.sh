@@ -23,29 +23,11 @@ echo "### Setup for ${OS} ###"
 
 # brew basic packages
 [[ -d $HOMEBREW_PREFIX ]] && {
-  brew update
-  brew install bat eza jq gh mise moreutils starship fzf sheldon uv gemini-cli
+  brew bundle install
 
-  # MacTools
+  # for Mac Environment
   [[ $OS == "Mac" ]] && {
-    # brew install --cask google-chrome
-    brew install --cask google-japanese-ime
-    # brew install --cask visual-studio-code
-    # brew install --cask raycast
-    brew install --cask alt-tab
-  }
-
-  # Docker Environments
-  [[ $OS == "Mac" ]] && {
-    # https://github.com/abiosoft/colima
-    brew install colima docker docker-compose
-    # brew services start colima
-  }
-
-  # GNU commands for Mac
-  [[ $OS == "Mac" ]] && {
-    brew install wget curl git tmux zsh zsh-completions htop emacs
-    brew install grep gawk gzip gnu-tar gnu-sed gnu-time gnu-getopt binutils findutils diffutils coreutils bash
+    brew bundle install --file Brewfile.mac
   }
 }
 

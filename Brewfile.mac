@@ -1,0 +1,35 @@
+# MacTools
+cask "alt-tab"
+cask "google-japanese-ime"
+cask "ghostty"
+cask "google-chrome"
+cask "visual-studio-code"
+cask "raycast"
+cask "antigravity"
+
+# Docker Environments
+brew "colima" # https://github.com/abiosoft/colima
+brew "docker"
+brew "docker-compose"
+
+# GNU commands for Mac
+brew "wget"
+brew "curl"
+brew "git"
+brew "zsh"
+brew "zsh-completions"
+brew "htop"
+brew "emacs"
+
+brew "grep"
+brew "gawk"
+brew "gzip"
+brew "gnu-tar"
+brew "gnu-sed"
+brew "gnu-time"
+brew "gnu-getopt"
+brew "binutils"
+brew "findutils"
+brew "diffutils"
+brew "coreutils"
+brew "bash"
