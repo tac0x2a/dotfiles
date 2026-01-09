@@ -35,6 +35,11 @@ echo "### Setup for ${OS} ###"
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
 [[ -e ~/.gitconfig ]] || ln -s ~/.dotfiles/.gitconfig  ~/.gitconfig
+[[ -e ~/.gitconfig.local ]] || {
+  echo "# [user]" > ~/.gitconfig.local
+  echo "#     name = Your Name" >> ~/.gitconfig.local
+  echo "#     email = your.email@example.com" >> ~/.gitconfig.local
+}
 [[ -e ~/.tmux.conf ]] || ln -s ~/.dotfiles/.tmux.conf  ~/.tmux.conf
 [[ -e ~/.zshrc     ]] || ln -s ~/.dotfiles/.zshrc      ~/.zshrc
 
