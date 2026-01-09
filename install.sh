@@ -34,9 +34,8 @@ echo "### Setup for ${OS} ###"
 # dotfiles -----------------------------------------------------------------------------------
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
-cd ~/.dotfiles
-stow home
-[[ $OS == "Mac" ]] && stow macos
+stow -v -d "$HOME/.dotfiles" -t "$HOME" .home_base
+[[ $OS == "Mac" ]] && stow -v -d "$HOME/.dotfiles" -t "$HOME" .home_mac
 
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 

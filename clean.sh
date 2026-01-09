@@ -1,11 +1,9 @@
 #!/bin/bash
 
-cd ~/.dotfiles
-stow -D home
+stow -v -d "$HOME/.dotfiles" -t "$HOME" -D .home_base
 if [ "$(uname)" == 'Darwin' ]; then
-  stow -D macos
+  stow -v -d "$HOME/.dotfiles" -t "$HOME" -D .home_mac
 fi
 
-cd $HOME
-rm -rf .zcompdump .zcompdump.zwc ~/.local/share/sheldon
+rm -rf "$HOME/.zcompdump" "$HOME/.zcompdump.zwc" "$HOME/.local/share/sheldon"
 # rm -rf .dotfiles
