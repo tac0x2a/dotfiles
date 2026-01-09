@@ -65,3 +65,18 @@ function fzf-select-git-branch(){
 }
 zle -N fzf-select-git-branch
 bindkey '^x^b' fzf-select-git-branch
+
+# Ctrl+x -> Ctrl+p : gh pr の の切り替え
+function fzf-select-gh-pr(){
+	local pr_number=$(gh pr list --json number,title,headRefName,updatedAt --template '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") .title .headRefName (timeago .updatedAt)}}{{end}}' | fzf | awk '{print $1}')
+	if [ ! -z $pr_number ]; then
+		BUFFER="gh pr checkout '${pr_number}'"
+		CURSOR="${#BUFFER}"
+	else
+		BUFFER=""
+		CURSOR=0
+	fi
+	zle -R -c
+}
+zle -N fzf-select-gh-pr
+bindkey '^x^p' fzf-select-gh-pr
