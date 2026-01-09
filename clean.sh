@@ -1,9 +1,11 @@
 #!/bin/bash
 
+cd ~/.dotfiles
+stow -D home
+if [ "$(uname)" == 'Darwin' ]; then
+  stow -D macos
+fi
+
 cd $HOME
-rm -rf .zshrc .zcompdump .zcompdump.zwc\
-       .gitconfig .tmux.conf \
-       .config/starship.toml \
-       .config/mise/config.toml \
-       ~/.config/sheldon ~/.local/share/sheldon
+rm -rf .zcompdump .zcompdump.zwc ~/.local/share/sheldon
 # rm -rf .dotfiles
