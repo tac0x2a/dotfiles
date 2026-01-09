@@ -1,6 +1,3 @@
-[user]
-	name = TAC
-	email = tac@tac42.net
 [column]
   ui = auto
 [branch]
@@ -86,3 +83,6 @@
   # grep関連
   gr = grep
   gn = grep -n
+
+[include]
+    path = ~/.gitconfig.local
