@@ -37,6 +37,12 @@ echo "### Setup for ${OS} ###"
 stow -v -d "$HOME/.dotfiles" -t "$HOME" .home_base
 [[ $OS == "Mac" ]] && stow -v -d "$HOME/.dotfiles" -t "$HOME" .home_mac
 
+[[ -e ~/.gitconfig.local ]] || cat <<'EOF' > ~/.gitconfig.local
+# [user]
+#     name = Your Name
+#     email = your.email@example.com
+EOF
+
 [[ -e ~/.zshrc.mine ]] || touch ~/.zshrc.mine
 
 # symlinks -----------------------------------------------------------------------------------
