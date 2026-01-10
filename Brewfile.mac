@@ -6,6 +6,7 @@ cask "google-chrome"
 cask "visual-studio-code"
 cask "raycast"
 cask "antigravity"
+cask "azookey"
 
 # Docker Environments
 brew "colima" # https://github.com/abiosoft/colima
