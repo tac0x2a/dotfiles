@@ -11,6 +11,7 @@
   colorMoved = plain # 移動箇所は別の色で表示(そのうちデフォルトになるらしい)
   mnemonicPrefix = true # diff で [i]ndex,
   renames = true
+  external = difft
 [push]
   default = simple # ただ git push すればよい
   autoSetupRemote = true # リモート側になければブランチを作る
