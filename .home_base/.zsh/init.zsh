@@ -10,6 +10,9 @@
 	eval "$(mise activate zsh)"
 }
 
+# これらは mise で管理するので Homebrew にインストールさせない
+export HOMEBREW_FORBIDDEN_FORMULAE="node python python3 pip"
+
 #################
 # Auto-Complete #
 #################
