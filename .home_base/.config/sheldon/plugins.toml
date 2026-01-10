@@ -28,10 +28,10 @@ github = "romkatv/zsh-defer"
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
 
-# SUPER SLOW...
-# [plugins.zsh-syntax-highlighting]
-# github = "zsh-users/zsh-syntax-highlighting"
-# apply = ["defer"]
+[plugins.fast-syntax-highlighting]
+github = "zdharma/fast-syntax-highlighting"
+apply = ["defer"]
+
 
 # git open で remote をブラウザで開く
 [plugins.git-open]
