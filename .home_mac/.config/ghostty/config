@@ -48,5 +48,6 @@ keybind = cmd+b=text:\x1bb
 
 
 copy-on-select = clipboard
+right-click-action = paste
 
 title-report = false
