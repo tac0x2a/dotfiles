@@ -12,7 +12,8 @@ font-size = 15
 
 # Themes: `ghostty +list-themes`
 # theme = Birds Of Paradise
-theme = Cobalt Next Dark
+# theme = Cobalt Next Dark
+theme = Earthsong
 
 background-opacity = 0.90
 background-blur = true
@@ -47,3 +48,5 @@ keybind = cmd+b=text:\x1bb
 
 
 copy-on-select = clipboard
+
+title-report = false
