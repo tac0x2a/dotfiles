@@ -34,3 +34,8 @@ brew "findutils"
 brew "diffutils"
 brew "coreutils"
 brew "bash"
+
+# Fonts
+cask "font-plemol-jp"
+cask "font-plemol-jp-nf"
+cask "font-plemol-jp-hs"
