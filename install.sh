@@ -34,8 +34,8 @@ echo "### Setup for ${OS} ###"
 # dotfiles -----------------------------------------------------------------------------------
 [[ -d ~/.dotfiles ]] || git clone https://github.com/tac0x2a/dotfiles.git ~/.dotfiles
 
-stow -v -d "$HOME/.dotfiles" -t "$HOME" .home_base
-[[ $OS == "Mac" ]] && stow -v -d "$HOME/.dotfiles" -t "$HOME" .home_mac
+stow -v -d "$HOME/.dotfiles" -t "$HOME" home_base
+[[ $OS == "Mac" ]] && stow -v -d "$HOME/.dotfiles" -t "$HOME" home_mac
 
 [[ -e ~/.gitconfig.local ]] || cat <<'EOF' > ~/.gitconfig.local
 # [user]

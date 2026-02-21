@@ -1,7 +1,5 @@
-
 [[ $(type brew) && $? == 0 ]] && {
   for package in $(ls $(brew --prefix)/opt/*/libexec/gnubin | grep '^/opt' | sed "s/://"); do
     export PATH="$package:$PATH"
   done
 }
-

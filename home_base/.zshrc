@@ -7,8 +7,12 @@ source "${HOME}/.zsh/init.zsh"
 source "${HOME}/.zsh/tmux.zsh"
 source "${HOME}/.zsh/fzf.zsh"
 source "${HOME}/.zsh/aliases.zsh"
+[ -f ${HOME}/.zsh/gnubin.zsh ] && source "${HOME}/.zsh/gnubin.zsh"
 
 ##################################
 # ローカル設定ファイルを読み込む #
 ##################################
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+
+# Added by Antigravity
+export PATH="/Users/tac/.antigravity/antigravity/bin:$PATH"
