@@ -1,3 +1,6 @@
+[settings]
+install_before = "14d"
+
 [tools]
 aws-cli = "latest"
 python = "latest"
