@@ -39,3 +39,6 @@ brew "bash"
 cask "font-plemol-jp"
 cask "font-plemol-jp-nf"
 cask "font-plemol-jp-hs"
+
+# Apps
+cask "claude"
