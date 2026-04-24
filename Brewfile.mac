@@ -6,7 +6,6 @@ cask "google-chrome"
 cask "visual-studio-code"
 cask "raycast"
 cask "antigravity"
-cask "azookey"
 
 # Docker Environments
 brew "colima" # https://github.com/abiosoft/colima
@@ -39,6 +38,3 @@ brew "bash"
 cask "font-plemol-jp"
 cask "font-plemol-jp-nf"
 cask "font-plemol-jp-hs"
-
-# Apps
-cask "claude"
